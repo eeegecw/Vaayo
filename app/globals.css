@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap');
 
 :root {
   --ink: #171914;
@@ -270,4 +270,383 @@ tr:last-child td { border-bottom: 0; }
   .footer-main { grid-template-columns: 1fr 1fr; gap: 34px 45px; }
   .footer-brand-block { max-width: 360px; }
   .footer-bottom { padding-right: 60px; }
+}
+
+
+/* VAYO brand refresh — local, calm and editorial */
+:root {
+  --ink: #243b31;
+  --ink-soft: #334a3f;
+  --paper: #f3f0e8;
+  --white: #fcfbf7;
+  --muted: #757970;
+  --line: #dedbd1;
+  --gold: #b77451;
+  --gold-light: #ead8c7;
+  --green: #435d4e;
+  --danger: #a94b43;
+  --shadow: 0 14px 34px rgba(31, 49, 40, .08);
+}
+html { scroll-padding-top: 88px; }
+body { background: var(--paper); color: var(--ink); font-family: 'DM Sans', Arial, sans-serif; }
+.app-shell { min-height: 100vh; overflow: clip; }
+.topbar {
+  height: 78px;
+  padding: 0 6vw;
+  background: rgba(243,240,232,.97);
+  border-bottom: 1px solid #d9d5ca;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.brand { gap: 10px; }
+.brand-mark {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--ink); color: #f4eee2;
+  font: 600 27px 'Newsreader', Georgia, serif;
+  letter-spacing: -1px;
+}
+.brand-name { font: 700 18px 'DM Sans', sans-serif; letter-spacing: .15em; }
+.brand-tag { font-size: 8px; letter-spacing: .15em; color: #8d715c; }
+.location-pill {
+  border: 0; border-left: 1px solid #d7d2c7; border-radius: 0;
+  padding: 7px 0 7px 17px; color: #667067; font-size: 11px;
+}
+.nav-link { color: #59665d; padding: 10px 9px; font-size: 12px; font-weight: 600; }
+.nav-link:hover, .nav-link.active { color: var(--gold); }
+.button {
+  border-radius: 4px; padding: 12px 17px;
+  font-size: 12px; letter-spacing: .01em; box-shadow: none;
+}
+.button-dark { background: var(--ink); color: #f5f0e6; }
+.button-dark:hover { background: #354f42; }
+.button-outline { border: 1px solid #9da69c; color: var(--ink); }
+.button-outline:hover { background: #e8e7dd; }
+.eyebrow {
+  color: #9c6548; font-size: 9px; letter-spacing: .16em;
+  gap: 9px;
+}
+.eyebrow:before { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.hero {
+  width: min(100%, 1600px); margin: 0 auto;
+  padding: 78px 6vw 82px;
+  grid-template-columns: minmax(0, 1.05fr) minmax(350px, .82fr);
+  gap: clamp(44px, 7vw, 112px);
+  align-items: center;
+}
+.hero-copy-column { max-width: 660px; }
+.hero h1 {
+  margin: 23px 0 21px;
+  max-width: 730px;
+  color: var(--ink);
+  font: 500 clamp(48px, 5.7vw, 78px)/.99 'Newsreader', Georgia, serif;
+  letter-spacing: -.045em;
+}
+.hero h1 em { color: #a86547; font-style: italic; }
+.hero-copy {
+  max-width: 510px; margin: 0;
+  color: #656d65; font-size: 15px; line-height: 1.85;
+}
+.hero-cta { margin-top: 29px; gap: 11px; }
+.trust-row {
+  margin-top: 34px; padding-top: 18px; border-top: 1px solid #dcd8ce;
+  gap: 15px 25px; color: #73796f; font-size: 10px;
+}
+.trust-item { gap: 7px; }
+.trust-item svg { color: #9e6c4d; }
+.hero-visual {
+  min-height: 390px; padding: 29px 31px 23px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  color: #f4efe5; background: #263e33;
+  border: 0; border-radius: 3px; box-shadow: none;
+  position: relative; overflow: hidden;
+}
+.hero-visual:before {
+  content: ""; position: absolute; display: block;
+  width: 430px; height: 430px; right: -250px; bottom: -265px; top: auto;
+  border: 1px solid rgba(239,228,207,.16); border-radius: 50%;
+  box-shadow: 0 0 0 32px rgba(239,228,207,.025), 0 0 0 68px rgba(239,228,207,.02);
+}
+.hero-visual-top, .hero-visual-bottom {
+  display: flex; justify-content: space-between; gap: 16px;
+  color: #d3c4ad; font-size: 9px; font-weight: 700; letter-spacing: .12em;
+}
+.hero-steps { position: relative; z-index: 1; margin: 34px 0 30px; }
+.hero-step {
+  display: grid; grid-template-columns: 45px 1fr; gap: 14px;
+  align-items: start; padding: 18px 0;
+  border-bottom: 1px solid rgba(242,235,223,.18);
+}
+.hero-step:first-child { border-top: 1px solid rgba(242,235,223,.18); }
+.hero-step-number { color: #d19a75; font: 500 21px 'Newsreader', Georgia, serif; }
+.hero-step small {
+  display: block; margin-bottom: 6px; color: #c4b59e;
+  font-size: 8px; font-weight: 700; letter-spacing: .16em;
+}
+.hero-step strong { color: #fcfaf4; font: 500 22px 'Newsreader', Georgia, serif; }
+.hero-visual-bottom { color: #c4b59e; font-size: 8px; }
+.section { padding: 67px 6vw 80px; }
+.section-head { margin-bottom: 31px; }
+.section-head h2 {
+  color: var(--ink); font: 500 40px/1.1 'Newsreader', Georgia, serif;
+  letter-spacing: -.03em; margin: 12px 0 8px;
+}
+.section-sub { color: #73796f; font-size: 13px; line-height: 1.65; }
+.service-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 26px;
+}
+.service-card {
+  position: relative; min-height: 205px; padding: 22px 24px 20px 0;
+  background: transparent; border: 0; border-top: 1px solid #c9c6bb;
+  border-radius: 0; box-shadow: none; text-align: left;
+  transition: background .18s;
+}
+.service-card:hover {
+  transform: none; border-color: #a66c4d; background: rgba(255,255,255,.3);
+}
+.service-number, .pricing-step {
+  display: block; color: #a56d4c; font-size: 9px;
+  font-weight: 700; letter-spacing: .13em;
+}
+.service-card h3 {
+  margin: 24px 0 10px; color: var(--ink);
+  font: 500 27px/1.08 'Newsreader', Georgia, serif;
+}
+.service-card p {
+  max-width: 320px; color: #73796f; font-size: 12px; line-height: 1.7;
+}
+.service-card-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 17px; color: #80563e; font-size: 10px; font-weight: 700;
+}
+.pricing-section {
+  padding: 76px 6vw 72px; background: #e9e7dc; text-align: left;
+  border-top: 1px solid #dedacd; border-bottom: 1px solid #dedacd;
+}
+.pricing-heading { width: min(100%, 780px); margin: 0 0 39px; }
+.pricing-heading .eyebrow { justify-content: flex-start; }
+.pricing-heading h2 {
+  margin: 14px 0 13px; color: var(--ink);
+  font: 500 clamp(34px, 4vw, 48px)/1.03 'Newsreader', Georgia, serif;
+  letter-spacing: -.035em;
+}
+.pricing-heading p { max-width: 690px; margin: 0; color: #697268; font-size: 14px; line-height: 1.8; }
+.pricing-cards {
+  width: min(100%, 1320px); margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px;
+}
+.pricing-card {
+  min-height: 190px; display: block; padding: 22px 22px 18px 0;
+  background: transparent; border: 0; border-top: 1px solid #c3c0b4;
+  border-radius: 0; box-shadow: none; text-align: left;
+}
+.pricing-card:hover { transform: none; box-shadow: none; }
+.pricing-card h3 {
+  margin: 22px 0 9px; color: var(--ink);
+  font: 500 25px/1.1 'Newsreader', Georgia, serif;
+}
+.pricing-card p { max-width: 330px; color: #697268; font-size: 12px; line-height: 1.75; }
+.pricing-cta {
+  margin-top: 26px; padding: 13px 19px; border-radius: 4px;
+  background: var(--ink); color: #f6f0e5;
+  font-size: 11px; box-shadow: none;
+}
+.pricing-cta:hover { transform: translateY(-1px); background: #3b5548; }
+.booking-wrap { padding: 68px 6vw 78px; }
+.booking-panel {
+  max-width: 1350px; margin: 0 auto; grid-template-columns: .85fr 1.15fr;
+  background: var(--white); border: 1px solid #dcd8ce;
+  border-radius: 3px; overflow: hidden; box-shadow: none;
+}
+.booking-aside { background: #263e33; padding: 43px 38px; }
+.booking-aside:after { color: rgba(223,202,173,.035); }
+.booking-aside h2 {
+  max-width: 400px; font: 500 40px/1.06 'Newsreader', Georgia, serif;
+  letter-spacing: -.025em; margin: 21px 0 17px;
+}
+.booking-aside p { max-width: 315px; color: #d0d1c8; font-size: 13px; line-height: 1.8; }
+.aside-note { margin-top: 49px; padding-top: 17px; border-top: 1px solid rgba(255,255,255,.18); color: #e4d2ba; font-size: 10px; line-height: 1.6; }
+.booking-form { padding: 40px clamp(24px, 4vw, 55px); }
+.form-title { font: 500 29px 'Newsreader', Georgia, serif; color: var(--ink); }
+.form-sub { color: #73796f; font-size: 12px; line-height: 1.6; }
+.service-options { gap: 9px; margin-bottom: 25px; }
+.service-option {
+  border: 1px solid #dad7cd; background: #f8f6f0;
+  padding: 12px; border-radius: 3px; color: #667066;
+}
+.service-option svg { color: #9b6a4b; }
+.service-option strong { color: var(--ink); font-size: 11px; }
+.service-option.selected { border-color: var(--ink); background: #e9ede6; box-shadow: inset 0 0 0 1px var(--ink); }
+.field { margin-bottom: 17px; }
+.field label {
+  color: #667066; font-size: 9px; font-weight: 700;
+  letter-spacing: .09em; text-transform: none;
+}
+.field input, .field select, .field textarea, .input {
+  padding: 13px 12px; border: 1px solid #d8d6cd;
+  border-radius: 3px; background: #fffefa; font-size: 13px;
+}
+.field input:focus, .field select:focus, .input:focus {
+  border-color: #8a9a8c; box-shadow: 0 0 0 2px rgba(67,93,78,.10);
+}
+.form-foot { align-items: flex-end; margin-top: 11px; }
+.form-hint { max-width: 245px; color: #73796f; font-size: 10px; line-height: 1.65; }
+.help-section {
+  padding: 66px 6vw 72px; background: #20392f;
+  color: #fbf8ef; border-top: 1px solid #31483d;
+}
+.help-heading { margin: 0 auto 32px; }
+.help-heading .eyebrow { justify-content: center; color: #d0a17c; }
+.help-heading .eyebrow:before { background: #d0a17c; }
+.help-heading h2 {
+  margin: 11px 0 9px; font: 500 43px 'Newsreader', Georgia, serif;
+  letter-spacing: -.03em;
+}
+.help-heading p { color: #d5d8d0; font-size: 13px; }
+.help-cards { width: min(100%, 1060px); gap: 18px; }
+.help-card {
+  min-height: 148px; gap: 18px; padding: 23px 25px;
+  background: #f6f3eb; color: var(--ink);
+  border: 1px solid #e5e1d6; border-radius: 3px;
+  box-shadow: none;
+}
+.help-icon { width: 48px; height: 48px; flex-basis: 48px; border-radius: 3px; }
+.help-icon-dark { background: var(--ink); }
+.help-icon-accent { background: #a36d4e; }
+.help-card-label { color: #8c765f; font-size: 8px; letter-spacing: .13em; }
+.help-card h3 { margin: 0 0 6px; font: 500 23px 'Newsreader', Georgia, serif; }
+.help-card p { font-size: 11px; line-height: 1.65; }
+.help-card button { color: #80563e; font-size: 10px; }
+.site-footer { padding: 52px 6vw 21px; background: #f3f0e8; color: #6d756d; border-top: 1px solid #dcd8ce; }
+.footer-main { padding-bottom: 39px; gap: clamp(25px, 4vw, 65px); }
+.footer-logo .brand-mark { border-radius: 50%; }
+.footer-logo .brand-name { font: 700 19px 'DM Sans',sans-serif; letter-spacing: .15em; }
+.footer-description { color: #687269; font-size: 12px; line-height: 1.8; }
+.footer-note { color: #986d53; font-size: 9px; letter-spacing: .04em; }
+.footer-column h3, .footer-contact h3, .footer-presence h3 {
+  color: var(--ink); font-size: 10px; letter-spacing: .1em;
+}
+.footer-column button { color: #687269; font-size: 11px; margin-bottom: 12px; }
+.footer-column button:hover { color: #a26849; }
+.footer-column-note { color: #858980; font-size: 10px; }
+.footer-contact-row { color: #687269; font-size: 11px; }
+.footer-contact-row svg { color: #a26849; }
+.footer-portal-actions button {
+  border-radius: 3px; background: var(--ink); color: #f6f0e5;
+  box-shadow: none; font-size: 9px;
+}
+.footer-portal-actions button:hover { background: #3b5548; }
+.footer-presence { border-color: #dcd8ce; }
+.footer-presence h3 { margin-bottom: 13px; }
+.footer-cities { color: #737970; font-size: 11px; gap: 10px 23px; }
+.footer-bottom { color: #7a8077; font-size: 10px; }
+.footer-back-top {
+  width: 38px; height: 38px; top: 50%; border-radius: 3px;
+  background: var(--ink); box-shadow: none;
+}
+.footer-back-top:hover { background: #3b5548; }
+.page-content { padding: 49px 6vw 82px; background: var(--paper); }
+.page-heading { margin-bottom: 34px; }
+.page-heading h1 {
+  font: 500 43px/1.05 'Newsreader', Georgia, serif;
+  letter-spacing: -.035em; color: var(--ink);
+}
+.dashboard-grid { gap: 17px; margin-bottom: 29px; }
+.stat-card {
+  background: #f9f7f0; border: 0; border-top: 2px solid #a76e4f;
+  border-radius: 0; padding: 20px 21px;
+}
+.stat-label { color: #73796f; font-size: 10px; }
+.stat-value { color: var(--ink); font: 500 34px 'Newsreader', Georgia, serif; }
+.stat-icon { color: #a76e4f; }
+.data-panel {
+  background: var(--white); border: 1px solid #ddd9cf;
+  border-radius: 3px; box-shadow: none;
+}
+.data-panel-head { padding: 17px 20px; border-bottom: 1px solid #e2dfd5; }
+.data-panel-head h3 { color: var(--ink); font: 500 22px 'Newsreader', Georgia, serif; }
+th { color: #7d837a; font-size: 8px; letter-spacing: .1em; }
+td { color: #48564c; }
+th,td { border-bottom-color: #ebe8df; }
+.status { border-radius: 3px; font-size: 9px; }
+.small-button { border-radius: 3px; background: var(--ink); color: #f6f0e5; }
+.empty-icon { border-radius: 3px; background: #eceae1; color: #986d53; }
+.application-card {
+  background: var(--white); border: 1px solid #ddd9cf;
+  border-radius: 3px; box-shadow: none; padding: 30px;
+}
+.application-card h2 { font: 500 28px 'Newsreader', Georgia, serif; color: var(--ink); }
+.application-card p { color: #697268; font-size: 12px; line-height: 1.8; }
+.notice { border-radius: 3px; background: #eeece2; border-color: #d9d4c5; color: #665f4f; }
+.alert { border-radius: 3px; }
+.modal-backdrop { background: rgba(21,34,28,.58); backdrop-filter: blur(2px); }
+.modal {
+  border: 1px solid #dfdbd1; border-radius: 4px; background: #fcfbf7;
+  box-shadow: 0 20px 60px rgba(20,31,25,.18);
+}
+.modal h2 { color: var(--ink); font: 500 30px 'Newsreader', Georgia, serif; }
+.modal p { color: #697268; font-size: 12px; line-height: 1.75; }
+.modal-close { border-radius: 3px; background: #ebe9df; color: var(--ink); }
+.mobile-dropdown {
+  border-radius: 3px; border-color: #dedbd1; box-shadow: 0 10px 24px rgba(31,49,40,.12);
+}
+.mobile-dropdown button:hover { background: #eeece2; }
+::selection { background: #d9bca3; color: #20392f; }
+
+@media (max-width: 1050px) {
+  .topbar { padding: 0 4vw; }
+  .desktop-links { gap: 0; }
+  .nav-link { padding-left: 7px; padding-right: 7px; font-size: 11px; }
+  .hero { padding-left: 4vw; padding-right: 4vw; gap: 4vw; }
+  .service-grid, .pricing-cards { gap: 18px; }
+  .footer-main { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding-top: 58px; }
+  .hero-copy-column { max-width: 760px; }
+  .hero-visual { min-height: 360px; }
+  .booking-panel { grid-template-columns: 1fr; }
+  .booking-aside { padding: 32px; }
+  .aside-note { margin-top: 26px; }
+}
+@media (max-width: 700px) {
+  .topbar { height: 68px; padding: 0 18px; }
+  .location-pill { display: none; }
+  .desktop-links { display: none; }
+  .mobile-menu { display: inline-grid; place-items: center; }
+  .hero { padding: 43px 20px 48px; gap: 35px; }
+  .hero h1 { font-size: clamp(43px, 12vw, 60px); }
+  .hero-copy { font-size: 13px; }
+  .hero-visual { min-height: 335px; padding: 23px 21px 18px; }
+  .hero-step strong { font-size: 19px; }
+  .section { padding: 48px 20px 55px; }
+  .section-head h2 { font-size: 34px; }
+  .service-grid, .pricing-cards { grid-template-columns: 1fr; gap: 14px; }
+  .service-card { min-height: 0; padding: 19px 15px 22px 0; }
+  .service-card h3 { margin-top: 15px; font-size: 25px; }
+  .pricing-section { padding: 52px 20px 54px; }
+  .pricing-heading h2 { font-size: 36px; }
+  .pricing-heading p { font-size: 12px; }
+  .pricing-card { min-height: 0; padding: 20px 8px 18px 0; }
+  .pricing-card h3 { margin-top: 15px; font-size: 23px; }
+  .pricing-cta { margin-top: 15px; width: auto; max-width: none; }
+  .booking-wrap { padding: 48px 20px 56px; }
+  .booking-aside { padding: 27px 23px; }
+  .booking-aside h2 { font-size: 34px; }
+  .booking-form { padding: 27px 20px; }
+  .service-options { grid-template-columns: 1fr; }
+  .service-option { display: flex; align-items: center; gap: 11px; }
+  .service-option strong { margin-top: 0; }
+  .form-foot { align-items: stretch; flex-direction: column; }
+  .form-foot .button { width: 100%; }
+  .help-section { padding: 49px 20px 54px; }
+  .help-heading h2 { font-size: 36px; }
+  .help-cards { grid-template-columns: 1fr; gap: 13px; }
+  .help-card { padding: 20px 17px; }
+  .site-footer { padding: 40px 20px 18px; }
+  .footer-main { grid-template-columns: 1fr 1fr; gap: 26px 18px; }
+  .footer-brand-block { grid-column: 1 / -1; }
+  .footer-bottom { justify-content: flex-start; align-items: flex-start; text-align: left; padding-right: 50px; gap: 9px; }
+  .footer-back-top { top: 50%; }
+  .page-content { padding: 35px 20px 60px; }
+  .page-heading h1 { font-size: 35px; }
 }
