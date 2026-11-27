@@ -18,7 +18,7 @@ type Profile = { id: string; full_name: string | null; phone: string | null; rol
 type Booking = {
   id: string; customer_id: string; driver_id: string | null; service_type: ServiceType;
   pickup: string; destination: string | null; scheduled_at: string | null;
-  status: string; quoted_fare: number | null; created_at: string;
+  duration_hours: number | null; status: string; quoted_fare: number | null; created_at: string;
 };
 type DriverApplication = {
   id: string; user_id: string; full_name: string; license_number: string;
@@ -53,6 +53,7 @@ export default function VayoApp() {
   const [pickup, setPickup] = useState("Mananthavady");
   const [destination, setDestination] = useState("");
   const [scheduledAt, setScheduledAt] = useState("");
+  const [durationHours, setDurationHours] = useState("2");
   const [bookingBusy, setBookingBusy] = useState(false);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loadingBookings, setLoadingBookings] = useState(false);
@@ -99,7 +100,7 @@ export default function VayoApp() {
     if (!supabase || !user) return;
     setLoadingBookings(true);
     const { data, error } = await supabase.from("bookings")
-      .select("id,customer_id,driver_id,service_type,pickup,destination,scheduled_at,status,quoted_fare,created_at")
+      .select("id,customer_id,driver_id,service_type,pickup,destination,scheduled_at,duration_hours,status,quoted_fare,created_at")
       .order("created_at", { ascending: false }).limit(100);
     if (error) setNotice(error.message);
     else setBookings((data ?? []) as Booking[]);
@@ -182,13 +183,14 @@ export default function VayoApp() {
       customer_id: user.id, service_type: service, pickup: pickup.trim(),
       destination: destination.trim() || null,
       scheduled_at: scheduledAt ? new Date(scheduledAt).toISOString() : null,
+      duration_hours: service === "hourly" ? Number(durationHours) : null,
       status: "requested",
     });
     setBookingBusy(false);
     if (error) setNotice(error.message);
     else {
       setNotice("Your request has been sent. The VAYO team will review it and add the fare before confirming.");
-      setDestination(""); setScheduledAt(""); setView("bookings"); await refreshBookings();
+      setDestination(""); setScheduledAt(""); setDurationHours("2"); setView("bookings"); await refreshBookings();
     }
   }
 
@@ -351,6 +353,7 @@ export default function VayoApp() {
                   <div className="field"><label htmlFor="pickup">PICKUP LOCATION</label><input id="pickup" value={pickup} onChange={(e) => setPickup(e.target.value)} placeholder="e.g. Mananthavady" required/></div>
                   <div className="field"><label htmlFor="destination">DESTINATION {service !== "one_way" && "(OPTIONAL)"}</label><input id="destination" value={destination} onChange={(e) => setDestination(e.target.value)} placeholder="Where are you headed?" required={service === "one_way"}/></div>
                 </div>
+                {service === "hourly" && <div className="field"><label htmlFor="duration">HOW MANY HOURS?</label><select id="duration" value={durationHours} onChange={(e) => setDurationHours(e.target.value)}>{Array.from({ length: 12 }, (_, i) => i + 1).map((hours) => <option key={hours} value={String(hours)}>{hours} {hours === 1 ? "hour" : "hours"}</option>)}</select></div>}
                 <div className="field"><label htmlFor="datetime">WHEN DO YOU NEED A DRIVER?</label><input id="datetime" type="datetime-local" value={scheduledAt} onChange={(e) => setScheduledAt(e.target.value)}/></div>
                 <div className="form-foot"><span className="form-hint">No fare is charged at this stage. VAYO will share the admin-approved price with you.</span><button className="button button-dark" type="submit" disabled={bookingBusy}>{bookingBusy ? <Loader2 size={15} className="spinner"/> : null} Request a driver <ArrowRight size={14}/></button></div>
               </form>
@@ -368,7 +371,7 @@ export default function VayoApp() {
             <div className="stat-card"><CheckCircle2 className="stat-icon" size={19}/><div className="stat-label">Quoted fares</div><div className="stat-value">{myBookings.filter((b) => b.quoted_fare !== null).length}</div></div>
           </div>
           <div className="data-panel"><div className="data-panel-head"><h3>Booking history</h3><button className="small-button" onClick={() => void refreshBookings()}><Bell size={12}/> Refresh</button></div>
-            {loadingBookings ? <div className="empty-state"><Loader2 className="spinner" size={20}/><p>Loading bookings…</p></div> : myBookings.length === 0 ? <div className="empty-state"><span className="empty-icon"><CarFront size={22}/></span><div>No bookings yet</div><p>Your driver requests will appear here.</p></div> : <div className="table-wrap"><table><thead><tr><th>BOOKING</th><th>SERVICE</th><th>JOURNEY</th><th>DATE</th><th>FARE</th><th>STATUS / ACTION</th></tr></thead><tbody>{myBookings.map((b) => <tr key={b.id}><td>#{b.id.slice(0, 7).toUpperCase()}</td><td>{services.find((s) => s.id === b.service_type)?.title ?? b.service_type}</td><td>{b.pickup} → {b.destination || "Flexible"}</td><td>{b.scheduled_at ? new Date(b.scheduled_at).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }) : "AS SOON AS POSSIBLE"}</td><td>{b.quoted_fare !== null ? rupees(b.quoted_fare) : "Pending"}</td><td>{b.status === "quoted" && profile?.role === "customer" ? <div className="inline-control"><button className="small-button" onClick={() => void respondToQuote(b.id, true)}>Accept</button><button className="small-button" style={{ background: "#eee", color: "#555" }} onClick={() => void respondToQuote(b.id, false)}>Decline</button></div> : <span className={`status ${b.status}`}>{prettyStatus(b.status)}</span>}</td></tr>)}</tbody></table></div>}
+            {loadingBookings ? <div className="empty-state"><Loader2 className="spinner" size={20}/><p>Loading bookings…</p></div> : myBookings.length === 0 ? <div className="empty-state"><span className="empty-icon"><CarFront size={22}/></span><div>No bookings yet</div><p>Your driver requests will appear here.</p></div> : <div className="table-wrap"><table><thead><tr><th>BOOKING</th><th>SERVICE</th><th>JOURNEY</th><th>DATE</th><th>FARE</th><th>STATUS / ACTION</th></tr></thead><tbody>{myBookings.map((b) => <tr key={b.id}><td>#{b.id.slice(0, 7).toUpperCase()}</td><td>{services.find((s) => s.id === b.service_type)?.title ?? b.service_type}{b.duration_hours ? ` · ${b.duration_hours}h` : ""}</td><td>{b.pickup} → {b.destination || "Flexible"}</td><td>{b.scheduled_at ? new Date(b.scheduled_at).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }) : "AS SOON AS POSSIBLE"}</td><td>{b.quoted_fare !== null ? rupees(b.quoted_fare) : "Pending"}</td><td>{b.status === "quoted" && profile?.role === "customer" ? <div className="inline-control"><button className="small-button" onClick={() => void respondToQuote(b.id, true)}>Accept</button><button className="small-button" style={{ background: "#eee", color: "#555" }} onClick={() => void respondToQuote(b.id, false)}>Decline</button></div> : <span className={`status ${b.status}`}>{prettyStatus(b.status)}</span>}</td></tr>)}</tbody></table></div>}
           </div>
         </main>
       )}
@@ -399,7 +402,7 @@ export default function VayoApp() {
             <div className="page-heading"><div><div className="eyebrow">Operations control</div><h1>Admin dashboard</h1><p className="section-sub">Review requests, set fares and approve driver partners.</p></div><button className="button button-outline" onClick={() => { void refreshBookings(); void refreshAdminData(); }}>Refresh data</button></div>
             <div className="dashboard-grid"><div className="stat-card"><ClipboardList className="stat-icon" size={19}/><div className="stat-label">All bookings</div><div className="stat-value">{bookings.length}</div></div><div className="stat-card"><Clock3 className="stat-icon" size={19}/><div className="stat-label">New requests</div><div className="stat-value">{pendingCount}</div></div><div className="stat-card"><Users className="stat-icon" size={19}/><div className="stat-label">Verified drivers</div><div className="stat-value">{drivers.length}</div></div></div>
             <div className="data-panel" style={{ marginBottom: 22 }}><div className="data-panel-head"><h3>Booking requests & fare control</h3><span className="section-sub">{revenueQuotes} fares quoted</span></div>
-              {bookings.length === 0 ? <div className="empty-state">No booking requests yet.</div> : <div className="table-wrap"><table><thead><tr><th>BOOKING</th><th>SERVICE</th><th>JOURNEY</th><th>STATUS</th><th>SET FARE (₹)</th><th>ASSIGN DRIVER</th></tr></thead><tbody>{bookings.map((b) => <tr key={b.id}><td>#{b.id.slice(0,7).toUpperCase()}</td><td>{services.find((s) => s.id === b.service_type)?.title}</td><td>{b.pickup} → {b.destination || "Flexible"}</td><td><span className={`status ${b.status}`}>{prettyStatus(b.status)}</span></td><td>{b.status === "requested" ? <div className="inline-control"><input aria-label="Fare in rupees" type="number" min="1" placeholder="Amount" value={quoteDrafts[b.id] ?? ""} onChange={(e) => setQuoteDrafts({ ...quoteDrafts, [b.id]: e.target.value })}/><button className="small-button" disabled={adminBusyId === b.id} onClick={() => void updateQuote(b)}>Quote</button></div> : b.quoted_fare !== null ? rupees(b.quoted_fare) : "—"}</td><td>{b.status === "confirmed" ? <div className="inline-control"><select aria-label="Select driver" value={assignDrafts[b.id] ?? ""} onChange={(e) => setAssignDrafts({ ...assignDrafts, [b.id]: e.target.value })}><option value="">Choose driver</option>{drivers.map((d) => <option key={d.id} value={d.id}>{d.full_name || d.phone || d.id.slice(0,6)}</option>)}</select><button className="small-button" disabled={adminBusyId === b.id || drivers.length === 0} onClick={() => void assignDriver(b)}>Assign</button></div> : b.driver_id ? "Assigned" : "—"}</td></tr>)}</tbody></table></div>}
+              {bookings.length === 0 ? <div className="empty-state">No booking requests yet.</div> : <div className="table-wrap"><table><thead><tr><th>BOOKING</th><th>SERVICE</th><th>JOURNEY</th><th>STATUS</th><th>SET FARE (₹)</th><th>ASSIGN DRIVER</th></tr></thead><tbody>{bookings.map((b) => <tr key={b.id}><td>#{b.id.slice(0,7).toUpperCase()}</td><td>{services.find((s) => s.id === b.service_type)?.title}{b.duration_hours ? ` · ${b.duration_hours}h` : ""}</td><td>{b.pickup} → {b.destination || "Flexible"}</td><td><span className={`status ${b.status}`}>{prettyStatus(b.status)}</span></td><td>{b.status === "requested" ? <div className="inline-control"><input aria-label="Fare in rupees" type="number" min="1" placeholder="Amount" value={quoteDrafts[b.id] ?? ""} onChange={(e) => setQuoteDrafts({ ...quoteDrafts, [b.id]: e.target.value })}/><button className="small-button" disabled={adminBusyId === b.id} onClick={() => void updateQuote(b)}>Quote</button></div> : b.quoted_fare !== null ? rupees(b.quoted_fare) : "—"}</td><td>{b.status === "confirmed" ? <div className="inline-control"><select aria-label="Select driver" value={assignDrafts[b.id] ?? ""} onChange={(e) => setAssignDrafts({ ...assignDrafts, [b.id]: e.target.value })}><option value="">Choose driver</option>{drivers.map((d) => <option key={d.id} value={d.id}>{d.full_name || d.phone || d.id.slice(0,6)}</option>)}</select><button className="small-button" disabled={adminBusyId === b.id || drivers.length === 0} onClick={() => void assignDriver(b)}>Assign</button></div> : b.driver_id ? "Assigned" : "—"}</td></tr>)}</tbody></table></div>}
             </div>
             <div className="data-panel"><div className="data-panel-head"><h3>Driver applications</h3><span className="status pending">{applications.length} pending</span></div>
               {applications.length === 0 ? <div className="empty-state">No pending driver applications.</div> : <div className="table-wrap"><table><thead><tr><th>APPLICANT</th><th>LICENCE NUMBER</th><th>SUBMITTED</th><th>REVIEW</th></tr></thead><tbody>{applications.map((a) => <tr key={a.id}><td>{a.full_name}</td><td>{a.license_number}</td><td>{new Date(a.created_at).toLocaleDateString("en-IN")}</td><td><div className="inline-control"><button className="small-button" disabled={adminBusyId === a.id} onClick={() => void reviewApplication(a.id, true)}>Approve</button><button className="small-button" style={{ background: "#eee", color: "#555" }} disabled={adminBusyId === a.id} onClick={() => void reviewApplication(a.id, false)}>Reject</button></div></td></tr>)}</tbody></table></div>}
