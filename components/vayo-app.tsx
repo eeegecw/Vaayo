@@ -4,10 +4,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import type { User } from "@supabase/supabase-js";
 import {
-  ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront,
+  ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront, ChevronUp,
   CheckCircle2, Clock3, KeyRound, Loader2, LogOut, MapPin, Menu,
   Navigation, ShieldCheck, Sparkles, Users, Wallet, X,
-  ClipboardList, AlertCircle
+  ClipboardList, AlertCircle, Facebook, Instagram, Linkedin, Youtube
 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -299,8 +299,17 @@ export default function VayoApp() {
     if (next === "driver") void refreshBookings();
   }
 
+  function goToHomeSection(sectionId: string) {
+    setView("home");
+    setMenuOpen(false);
+    setNotice("");
+    window.setTimeout(() => {
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
+  }
+
   return (
-    <div className="app-shell">
+    <div className="app-shell" id="top">
       <header className="topbar">
         <a href="#" className="brand" onClick={(e) => { e.preventDefault(); go("home"); }}>
           <span className="brand-mark">V</span><span><span className="brand-name">VAYO</span><span className="brand-tag">PERSONAL DRIVER SERVICE</span></span>
@@ -352,7 +361,7 @@ export default function VayoApp() {
             </div>
           </main>
 
-          <section className="section">
+          <section className="section" id="services">
             <div className="section-head"><div><div className="eyebrow">One service, your way</div><h2>Choose how you travel.</h2><p className="section-sub">A driver that fits the day you have planned.</p></div></div>
             <div className="service-grid">
               {services.map((item, index) => <button key={item.id} className="service-card" onClick={() => { setService(item.id); document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth" }); }} style={{ textAlign: "left" }}>
@@ -434,7 +443,63 @@ export default function VayoApp() {
         </main>
       )}
 
-      <footer className="footer"><a href="#" className="brand" onClick={(e) => { e.preventDefault(); go("home"); }}><span className="brand-mark">V</span><span className="brand-name">VAYO</span></a><span>Launching in Mananthavady, Wayanad · Your car. Your journey. Our driver.</span><span>© {new Date().getFullYear()} VAYO</span></footer>
+      <footer className="site-footer" id="site-footer">
+        <div className="footer-main">
+          <section className="footer-brand-block">
+            <button className="footer-logo" onClick={() => goToHomeSection("top")} aria-label="VAYO home">
+              <span className="brand-mark">V</span>
+              <span className="brand-name">VAYO</span>
+            </button>
+            <p className="footer-description">A dependable driver for the car you already own. Your car, your journey — our responsibility.</p>
+            <div className="footer-socials" aria-label="Social channels coming soon">
+              <span title="Facebook profile coming soon"><Facebook size={17}/></span>
+              <span title="Instagram profile coming soon"><Instagram size={17}/></span>
+              <span title="X profile coming soon" className="footer-x-mark">X</span>
+              <span title="LinkedIn profile coming soon"><Linkedin size={17}/></span>
+              <span title="YouTube profile coming soon"><Youtube size={17}/></span>
+            </div>
+            <span className="footer-note">Social channels coming soon</span>
+          </section>
+
+          <nav className="footer-column" aria-label="Quick links">
+            <h3>QUICK LINKS</h3>
+            <button onClick={() => goToHomeSection("book-driver")}>Book a driver</button>
+            <button onClick={() => goToHomeSection("services")}>Our services</button>
+            <button onClick={() => user ? go("bookings") : (setAuthMode("signin"), setAuthOpen(true))}>My bookings</button>
+            <button onClick={() => go("driver")}>Drive with VAYO</button>
+          </nav>
+
+          <section className="footer-column">
+            <h3>SERVICE &amp; SAFETY</h3>
+            <button onClick={() => goToHomeSection("services")}>One-way, hourly &amp; full-day</button>
+            <button onClick={() => goToHomeSection("book-driver")}>Fare shared before confirmation</button>
+            <button onClick={() => go("driver")}>Driver application &amp; verification</button>
+            <p className="footer-column-note">Every driver application is reviewed by the VAYO team.</p>
+          </section>
+
+          <section className="footer-contact">
+            <h3>CONTACT US</h3>
+            <div className="footer-contact-row"><MapPin size={17}/><span>Mananthavady, Wayanad,<br/>Kerala, India</span></div>
+            <div className="footer-contact-row"><ShieldCheck size={17}/><span>Need booking assistance?<br/>Sign in to manage your request.</span></div>
+            <div className="footer-portal-label">VAYO PORTALS</div>
+            <div className="footer-portal-actions">
+              <button onClick={() => go("home")}>Customer portal <ArrowUpRight size={13}/></button>
+              <button onClick={() => go("driver")}>Driver portal <ArrowUpRight size={13}/></button>
+            </div>
+          </section>
+        </div>
+
+        <div className="footer-presence">
+          <h3>CURRENT SERVICE AREA</h3>
+          <div className="footer-cities"><span>Mananthavady</span><span>Wayanad</span><span>Kerala</span></div>
+        </div>
+
+        <div className="footer-bottom">
+          <span>© {new Date().getFullYear()} VAYO. All rights reserved.</span>
+          <span>Your car. Your journey. Our driver.</span>
+          <button className="footer-back-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top"><ChevronUp size={20}/></button>
+        </div>
+      </footer>
 
       {authOpen && <div className="modal-backdrop" onMouseDown={(e) => { if (e.target === e.currentTarget) setAuthOpen(false); }}>
         <div className="modal">
