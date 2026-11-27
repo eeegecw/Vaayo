@@ -203,7 +203,10 @@ begin
   where id = p_application_id;
 
   if p_approve then
-    update public.profiles set role = 'driver' where id = target_user;
+    update public.profiles p
+    set role = 'driver',
+        full_name = coalesce((select a.full_name from public.driver_applications a where a.id = p_application_id), p.full_name)
+    where p.id = target_user;
   end if;
 end;
 $$;
