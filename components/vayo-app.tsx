@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import type { User } from "@supabase/supabase-js";
 import {
@@ -68,7 +68,7 @@ export default function VayoApp() {
   const [assignDrafts, setAssignDrafts] = useState<Record<string, string>>({});
   const [adminBusyId, setAdminBusyId] = useState("");
 
-  async function hydrateAccount(currentUser: User) {
+  const hydrateAccount = useCallback(async (currentUser: User) => {
     if (!supabase) return;
     setUser(currentUser);
     const { data } = await supabase.from("profiles")
@@ -80,7 +80,7 @@ export default function VayoApp() {
     if (nextProfile.role === "admin") setView("admin");
     else if (nextProfile.role === "driver") setView("driver");
     else setView("home");
-  }
+  }, [supabase]);
 
   useEffect(() => {
     if (!supabase) return;
@@ -94,9 +94,9 @@ export default function VayoApp() {
       else { setUser(null); setProfile(null); setBookings([]); setApplication(null); setView("home"); }
     });
     return () => { active = false; listener.subscription.unsubscribe(); };
-  }, [supabase]);
+  }, [supabase, hydrateAccount]);
 
-  async function refreshBookings() {
+  const refreshBookings = useCallback(async () => {
     if (!supabase || !user) return;
     setLoadingBookings(true);
     const { data, error } = await supabase.from("bookings")
@@ -105,17 +105,17 @@ export default function VayoApp() {
     if (error) setNotice(error.message);
     else setBookings((data ?? []) as Booking[]);
     setLoadingBookings(false);
-  }
+  }, [supabase, user]);
 
-  async function refreshDriverData() {
+  const refreshDriverData = useCallback(async () => {
     if (!supabase || !user) return;
     const { data } = await supabase.from("driver_applications")
       .select("id,user_id,full_name,license_number,status,created_at")
       .eq("user_id", user.id).order("created_at", { ascending: false }).limit(1).maybeSingle();
     setApplication((data as DriverApplication | null) ?? null);
-  }
+  }, [supabase, user]);
 
-  async function refreshAdminData() {
+  const refreshAdminData = useCallback(async () => {
     if (!supabase || profile?.role !== "admin") return;
     const [{ data: appData }, { data: driverData }] = await Promise.all([
       supabase.from("driver_applications").select("id,user_id,full_name,license_number,status,created_at").eq("status", "pending").order("created_at"),
@@ -123,14 +123,14 @@ export default function VayoApp() {
     ]);
     setApplications((appData ?? []) as DriverApplication[]);
     setDrivers((driverData ?? []) as DriverProfile[]);
-  }
+  }, [supabase, profile?.role]);
 
   useEffect(() => {
     if (!user) return;
     void refreshBookings();
     if (profile?.role === "customer") void refreshDriverData();
     if (profile?.role === "admin") void refreshAdminData();
-  }, [user, profile?.role]);
+  }, [user, profile?.role, refreshBookings, refreshDriverData, refreshAdminData]);
 
   async function requestOtp() {
     setAuthError(""); setAuthMessage("");
