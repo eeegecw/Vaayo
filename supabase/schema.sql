@@ -387,4 +387,6 @@ grant execute on function public.respond_to_booking_quote(uuid, boolean) to auth
 grant execute on function public.driver_update_booking_status(uuid, text) to authenticated;
 
 -- Admin bootstrap: sign in with your own phone first, then run as project owner:
--- update public.profiles set role = 'admin' where phone = '+91YOURMOBILENUMBER';
+-- update public.profiles p
+-- set role = 'admin'
+-- where p.id = (select u.id from auth.users u where u.email = 'you@example.com');
