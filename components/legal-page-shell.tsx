@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 type LegalPageShellProps = {
@@ -18,14 +19,14 @@ export function LegalPageShell({
   return (
     <div className="legal-shell">
       <header className="legal-topbar">
-        <a href="/" className="legal-brand" aria-label="VAYO home">
+        <Link href="/" className="legal-brand" aria-label="VAYO home">
           <span className="brand-mark">V</span>
           <span>VAYO</span>
-        </a>
+        </Link>
         <nav aria-label="Legal navigation">
-          <a href="/">Home</a>
-          <a href="/privacy" aria-current={title === "Privacy policy" ? "page" : undefined}>Privacy</a>
-          <a href="/terms" aria-current={title === "Terms of service" ? "page" : undefined}>Terms</a>
+          <Link href="/">Home</Link>
+          <Link href="/privacy" aria-current={title === "Privacy policy" ? "page" : undefined}>Privacy</Link>
+          <Link href="/terms" aria-current={title === "Terms of service" ? "page" : undefined}>Terms</Link>
         </nav>
       </header>
 
@@ -51,7 +52,7 @@ export function LegalPageShell({
 
       <footer className="legal-footer">
         <span>© {new Date().getFullYear()} VAYO · Mananthavady, Wayanad</span>
-        <div><a href="/">Back to VAYO</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+        <div><Link href="/">Back to VAYO</Link><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div>
       </footer>
     </div>
   );
