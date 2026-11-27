@@ -4,10 +4,10 @@ import { useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import type { User } from "@supabase/supabase-js";
 import {
-  ArrowRight, ArrowUpRight, BadgeCheck, Bell, CalendarClock, CarFront,
-  CheckCircle2, ChevronDown, Clock3, KeyRound, LayoutDashboard, LifeBuoy,
-  Loader2, LogOut, MapPin, Menu, Navigation, Phone, ShieldCheck, Sparkles,
-  Users, Wallet, X, ClipboardList, CircleUserRound, AlertCircle
+  ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront,
+  CheckCircle2, Clock3, KeyRound, Loader2, LogOut, MapPin, Menu,
+  Navigation, Phone, ShieldCheck, Sparkles, Users, Wallet, X,
+  ClipboardList, AlertCircle
 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
