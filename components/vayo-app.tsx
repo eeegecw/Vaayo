@@ -341,7 +341,7 @@ export default function VayoApp() {
 
           <section className="booking-wrap" id="book-driver">
             <div className="booking-panel">
-              <aside className="booking-aside"><div className="eyebrow">Start with the details</div><h2>A good journey starts with the right driver.</h2><p>Tell us where you're going. Our team will review your request and confirm the fare before your booking is final.</p><div className="aside-note"><ShieldCheck size={17}/> Driver verification is part of every VAYO application.</div></aside>
+              <aside className="booking-aside"><div className="eyebrow">Start with the details</div><h2>A good journey starts with the right driver.</h2><p>Tell us where you&apos;re going. Our team will review your request and confirm the fare before your booking is final.</p><div className="aside-note"><ShieldCheck size={17}/> Driver verification is part of every VAYO application.</div></aside>
               <form className="booking-form" onSubmit={submitBooking}>
                 <h3 className="form-title">Book a driver</h3><p className="form-sub">Request a driver for your own car.</p>
                 <div className="service-options">
