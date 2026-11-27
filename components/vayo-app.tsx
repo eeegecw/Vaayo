@@ -7,7 +7,7 @@ import {
   ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront, ChevronUp,
   CheckCircle2, Clock3, KeyRound, Loader2, LogOut, MapPin, Menu,
   Navigation, ShieldCheck, Sparkles, Users, Wallet, X,
-  ClipboardList, AlertCircle, Facebook, Instagram, Linkedin, Youtube
+  ClipboardList, AlertCircle, Facebook, Instagram, Linkedin, Youtube, IndianRupee
 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -360,6 +360,36 @@ export default function VayoApp() {
               <div className="visual-bottom"><span>YOUR VEHICLE, YOUR RULES<strong>Arrive with ease.</strong></span><Sparkles size={22} color="#c8a873"/></div>
             </div>
           </main>
+
+          <section className="pricing-section" id="charges">
+            <div className="pricing-heading">
+              <div className="eyebrow">Simple, transparent pricing</div>
+              <h2>Know your fare before you confirm.</h2>
+              <p>Every journey is different. VAYO reviews your trip and shares the fare with you before your booking is confirmed, so you can decide with confidence.</p>
+            </div>
+
+            <div className="pricing-cards">
+              <article className="pricing-card">
+                <span className="pricing-icon"><IndianRupee size={22}/></span>
+                <h3>Fare Shared Upfront</h3>
+                <p>Get a clear quote from the VAYO team before your booking is confirmed.</p>
+              </article>
+              <article className="pricing-card">
+                <span className="pricing-icon"><Clock3 size={22}/></span>
+                <h3>Choose Your Trip Type</h3>
+                <p>Book a one-way journey, an hourly driver, or a full-day service.</p>
+              </article>
+              <article className="pricing-card">
+                <span className="pricing-icon"><ShieldCheck size={22}/></span>
+                <h3>You Stay in Control</h3>
+                <p>Review the quoted fare and accept or decline it from your VAYO account.</p>
+              </article>
+            </div>
+
+            <button className="pricing-cta" onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
+              View Booking Options <ArrowRight size={16}/>
+            </button>
+          </section>
 
           <section className="section" id="services">
             <div className="section-head"><div><div className="eyebrow">One service, your way</div><h2>Choose how you travel.</h2><p className="section-sub">A driver that fits the day you have planned.</p></div></div>
