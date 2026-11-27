@@ -69,6 +69,55 @@ export default function VayoApp() {
   const [assignDrafts, setAssignDrafts] = useState<Record<string, string>>({});
   const [adminBusyId, setAdminBusyId] = useState("");
 
+  useEffect(() => {
+    const appRoot = document.querySelector(".app-shell");
+    if (!appRoot) return;
+
+    appRoot.classList.add("motion-ready");
+
+    const revealTargets = appRoot.querySelectorAll<HTMLElement>([
+      ".pricing-heading",
+      ".pricing-card",
+      ".section-head",
+      ".service-card",
+      ".booking-panel",
+      ".help-heading",
+      ".help-card",
+      ".footer-brand-block",
+      ".footer-column",
+      ".footer-contact",
+      ".footer-presence",
+      ".footer-bottom",
+      ".page-heading",
+      ".stat-card",
+      ".data-panel",
+      ".application-card"
+    ].join(", "));
+
+    if (!("IntersectionObserver" in window)) {
+      revealTargets.forEach((element) => element.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: "0px 0px -36px 0px",
+    });
+
+    revealTargets.forEach((element) => {
+      element.classList.add("reveal-on-scroll");
+      observer.observe(element);
+    });
+
+    return () => observer.disconnect();
+  }, [view, authOpen, menuOpen]);
+
   const hydrateAccount = useCallback(async (currentUser: User) => {
     if (!supabase) return;
     setUser(currentUser);
