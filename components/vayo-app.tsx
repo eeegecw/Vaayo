@@ -6,7 +6,7 @@ import type { User } from "@supabase/supabase-js";
 import {
   ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront,
   CheckCircle2, Clock3, KeyRound, Loader2, LogOut, MapPin, Menu,
-  Navigation, Phone, ShieldCheck, Sparkles, Users, Wallet, X,
+  Navigation, ShieldCheck, Sparkles, Users, Wallet, X,
   ClipboardList, AlertCircle
 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -43,9 +43,10 @@ export default function VayoApp() {
   const [view, setView] = useState<View>("home");
   const [menuOpen, setMenuOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
-  const [phone, setPhone] = useState("+91");
-  const [otp, setOtp] = useState("");
-  const [authStep, setAuthStep] = useState<"phone" | "otp">("phone");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [authMode, setAuthMode] = useState<"signin" | "signup">("signin");
   const [authBusy, setAuthBusy] = useState(false);
   const [authMessage, setAuthMessage] = useState("");
   const [authError, setAuthError] = useState("");
@@ -132,38 +133,60 @@ export default function VayoApp() {
     if (profile?.role === "admin") void refreshAdminData();
   }, [user, profile?.role, refreshBookings, refreshDriverData, refreshAdminData]);
 
-  async function requestOtp() {
-    setAuthError(""); setAuthMessage("");
-    const normalized = phone.replace(/[\s()-]/g, "");
-    if (!/^\+[1-9]\d{7,14}$/.test(normalized)) {
-      setAuthError("Enter your mobile number with country code, for example +919876543210.");
-      return;
-    }
-    if (!supabase) {
-      setAuthError("Supabase is not connected yet. Add the project URL and anon key to .env.local first.");
-      return;
-    }
-    setAuthBusy(true);
-    const { error } = await supabase.auth.signInWithOtp({ phone: normalized });
-    setAuthBusy(false);
-    if (error) setAuthError(error.message);
-    else { setPhone(normalized); setAuthStep("otp"); setAuthMessage("A verification code has been requested. Check your SMS."); }
-  }
+  async function submitAuth(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setAuthError("");
+    setAuthMessage("");
 
-  async function verifyOtp() {
-    setAuthError(""); setAuthMessage("");
-    if (!supabase || otp.trim().length < 4) { setAuthError("Enter the verification code from your SMS."); return; }
+    if (!supabase) {
+      setAuthError("Supabase is not connected yet. Add the project URL and publishable key to .env.local first.");
+      return;
+    }
+    if (password.length < 8) {
+      setAuthError("Use a password with at least 8 characters.");
+      return;
+    }
+    if (authMode === "signup" && !username.trim()) {
+      setAuthError("Enter a username or display name.");
+      return;
+    }
+
     setAuthBusy(true);
-    const { data, error } = await supabase.auth.verifyOtp({
-      phone: phone.replace(/[\s()-]/g, ""), token: otp.trim(), type: "sms",
+    if (authMode === "signup") {
+      const { data, error } = await supabase.auth.signUp({
+        email: email.trim().toLowerCase(),
+        password,
+        options: { data: { full_name: username.trim() } },
+      });
+      setAuthBusy(false);
+      if (error) {
+        setAuthError(error.message);
+        return;
+      }
+      if (data.session && data.user) {
+        await hydrateAccount(data.user);
+        setAuthOpen(false);
+        setPassword("");
+        setAuthMessage("Your VAYO account is ready.");
+      } else {
+        setAuthMessage("Account created. Check your email for a confirmation link before signing in.");
+      }
+      return;
+    }
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.trim().toLowerCase(),
+      password,
     });
     setAuthBusy(false);
-    if (error) setAuthError(error.message);
-    else {
-      if (data.user) await hydrateAccount(data.user);
-      setAuthMessage("You're signed in.");
-      setAuthOpen(false); setOtp("");
+    if (error) {
+      setAuthError(error.message);
+      return;
     }
+    if (data.user) await hydrateAccount(data.user);
+    setAuthOpen(false);
+    setPassword("");
+    setAuthMessage("You're signed in.");
   }
 
   async function signOut() {
@@ -173,7 +196,7 @@ export default function VayoApp() {
 
   async function submitBooking(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setNotice("");
-    if (!user) { setAuthOpen(true); setAuthError("Sign in with your mobile number to request a driver."); return; }
+    if (!user) { setAuthOpen(true); setAuthMode("signin"); setAuthError("Sign in with your email and password to request a driver."); return; }
     if (!supabase) return;
     if (!pickup.trim() || (service === "one_way" && !destination.trim())) {
       setNotice("Please enter your pickup and destination."); return;
@@ -290,7 +313,7 @@ export default function VayoApp() {
             {user && profile?.role === "driver" && <button className={`nav-link ${view === "driver" ? "active" : ""}`} onClick={() => go("driver")}>Driver desk</button>}
             {user && profile?.role === "admin" && <button className={`nav-link ${view === "admin" ? "active" : ""}`} onClick={() => go("admin")}>Admin</button>}
           </div>
-          {user ? <button className="button button-outline" onClick={signOut}><LogOut size={14}/> Sign out</button> : <button className="button button-dark" onClick={() => setAuthOpen(true)}><Phone size={14}/> Sign in</button>}
+          {user ? <button className="button button-outline" onClick={signOut}><LogOut size={14}/> Sign out</button> : <button className="button button-dark" onClick={() => { setAuthMode("signin"); setAuthError(""); setAuthMessage(""); setAuthOpen(true); }}><KeyRound size={14}/> Sign in</button>}
           <button className="mobile-menu" aria-label="Open menu" onClick={() => setMenuOpen(!menuOpen)}><Menu size={18}/></button>
         </div>
         {menuOpen && <div className="mobile-dropdown">
@@ -302,7 +325,7 @@ export default function VayoApp() {
         </div>}
       </header>
 
-      {!configured && <div className="notice" style={{ margin: "16px 5.5vw 0" }}><AlertCircle size={16}/> Preview mode: connect Supabase to activate OTP login, save bookings and use the driver/admin workflows. Add your project URL and public anon key to <strong>.env.local</strong>.</div>}
+      {!configured && <div className="notice" style={{ margin: "16px 5.5vw 0" }}><AlertCircle size={16}/> Preview mode: connect Supabase to activate email/password accounts, save bookings and use the driver/admin workflows. Add your project URL and publishable key to <strong>.env.local</strong>.</div>}
       {notice && <div className="alert success" style={{ margin: "15px 5.5vw 0" }}>{notice}</div>}
 
       {view === "home" && (
@@ -415,18 +438,24 @@ export default function VayoApp() {
 
       {authOpen && <div className="modal-backdrop" onMouseDown={(e) => { if (e.target === e.currentTarget) setAuthOpen(false); }}>
         <div className="modal">
-          <button className="modal-close" aria-label="Close" onClick={() => { setAuthOpen(false); setAuthError(""); }}><X size={16}/></button>
+          <button className="modal-close" aria-label="Close" onClick={() => { setAuthOpen(false); setAuthError(""); setAuthMessage(""); }}><X size={16}/></button>
           <span className="brand-mark"><KeyRound size={20}/></span>
-          <h2>{authStep === "phone" ? "Welcome to VAYO" : "Verify your number"}</h2>
-          <p>{authStep === "phone" ? "Sign in securely with a one-time password sent to your mobile number." : `Enter the verification code sent to ${phone}.`}</p>
-          {authStep === "phone" ? <div className="field"><label htmlFor="phone">MOBILE NUMBER</label><input id="phone" className="input" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+919876543210"/></div> : <div className="field"><label htmlFor="otp">SMS VERIFICATION CODE</label><input id="otp" className="input" inputMode="numeric" autoComplete="one-time-code" value={otp} onChange={(e) => setOtp(e.target.value)} placeholder="Enter OTP"/></div>}
-          {authError && <div className="alert error">{authError}</div>}
-          {authMessage && <div className="alert success">{authMessage}</div>}
-          <button className="button button-dark" style={{ width: "100%", marginTop: 7 }} onClick={() => void (authStep === "phone" ? requestOtp() : verifyOtp())} disabled={authBusy}>
-            {authBusy ? <Loader2 size={15} className="spinner"/> : <Phone size={14}/>} {authStep === "phone" ? "Send OTP" : "Verify & sign in"} <ArrowRight size={14}/>
+          <h2>{authMode === "signup" ? "Create your VAYO account" : "Welcome to VAYO"}</h2>
+          <p>{authMode === "signup" ? "Create an account to book a driver or apply to drive with VAYO." : "Sign in to manage your bookings and driver account."}</p>
+          <form onSubmit={submitAuth}>
+            {authMode === "signup" && <div className="field"><label htmlFor="username">USERNAME / DISPLAY NAME</label><input id="username" className="input" type="text" autoComplete="name" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Your name" minLength={2} maxLength={60} required/></div>}
+            <div className="field"><label htmlFor="email">EMAIL ADDRESS</label><input id="email" className="input" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required/></div>
+            <div className="field"><label htmlFor="password">PASSWORD</label><input id="password" className="input" type="password" autoComplete={authMode === "signup" ? "new-password" : "current-password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 8 characters" minLength={8} required/></div>
+            {authError && <div className="alert error">{authError}</div>}
+            {authMessage && <div className="alert success">{authMessage}</div>}
+            <button className="button button-dark" type="submit" style={{ width: "100%", marginTop: 7 }} disabled={authBusy}>
+              {authBusy ? <Loader2 size={15} className="spinner"/> : <KeyRound size={14}/>} {authMode === "signup" ? "Create account" : "Sign in"} <ArrowRight size={14}/>
+            </button>
+          </form>
+          <button className="nav-link" type="button" style={{ width: "100%", marginTop: 12 }} onClick={() => { setAuthMode(authMode === "signin" ? "signup" : "signin"); setAuthError(""); setAuthMessage(""); }}>
+            {authMode === "signin" ? "New to VAYO? Create an account" : "Already registered? Sign in"}
           </button>
-          {authStep === "otp" && <button className="nav-link" style={{ width: "100%", marginTop: 10 }} onClick={() => { setAuthStep("phone"); setOtp(""); setAuthError(""); }}>Change mobile number</button>}
-          <div className="notice"><ShieldCheck size={15}/> Your number is used for account verification and booking updates. SMS delivery requires Supabase Phone Auth configuration.</div>
+          <div className="notice"><ShieldCheck size={15}/> Passwords are managed securely by Supabase Auth. Your username is shown on your VAYO account; use your email address to sign in.</div>
         </div>
       </div>}
     </div>
