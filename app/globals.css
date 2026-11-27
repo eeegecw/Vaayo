@@ -139,6 +139,9 @@ tr:last-child td { border-bottom: 0; }
 .spinner { animation: spin 1s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .mobile-menu { display: none; }
+.mobile-dropdown { position: absolute; right: 18px; top: calc(100% + 8px); width: 210px; padding: 8px; background: var(--white); border: 1px solid var(--line); border-radius: 11px; box-shadow: var(--shadow); display: grid; gap: 3px; }
+.mobile-dropdown button { border: 0; background: transparent; color: var(--ink); text-align: left; padding: 11px 12px; border-radius: 7px; font-size: 12px; font-weight: 600; }
+.mobile-dropdown button:hover { background: #f2eee4; }
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; padding-top: 48px; }
   .hero-visual { min-height: 350px; }
