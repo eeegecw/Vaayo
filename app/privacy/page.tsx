@@ -68,6 +68,11 @@ export default function PrivacyPage() {
           <li><strong>Google Fonts</strong> supplies the typefaces used by the website; a browser may request font resources from Google when pages load.</li>
         </ul>
         <p>
+          The VAYO Supabase project is currently configured in Tokyo, Japan (region
+          ap-northeast-1). Hosting and security providers may also process limited technical
+          information in their own infrastructure regions to deliver and protect the website.
+        </p>
+        <p>
           We do not sell your personal information. We do not currently operate an advertising
           profile or targeted-ad system on the VAYO website.
         </p>
@@ -116,9 +121,10 @@ export default function PrivacyPage() {
         <p>
           Depending on the provisions of Indian data protection law that are in force and
           applicable to the service, you may have rights to request information about processing,
-          correction or updating of personal data, erasure where retention is no longer
-          necessary, grievance redressal and nomination of another person to exercise rights
-          in specified circumstances.
+          correction or updating of personal data, withdrawal of consent where processing
+          relies on consent, erasure where retention is no longer necessary, grievance
+          redressal and nomination of another person to exercise rights in specified
+          circumstances.
         </p>
         <p>
           <strong>Privacy contact:</strong> a named privacy contact, working email address and
