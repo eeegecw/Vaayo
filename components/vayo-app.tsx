@@ -217,9 +217,10 @@ export default function VayoApp() {
     const amount = Number(quoteDrafts[booking.id]);
     if (!Number.isFinite(amount) || amount <= 0) { setNotice("Enter a valid fare greater than zero."); return; }
     setAdminBusyId(booking.id);
-    const { error } = await supabase.from("bookings").update({
-      quoted_fare: amount, fare_set_by: user?.id, status: "quoted",
-    }).eq("id", booking.id);
+    const { error } = await supabase.rpc("admin_set_booking_quote", {
+      p_booking_id: booking.id,
+      p_amount: amount,
+    });
     setAdminBusyId("");
     if (error) setNotice(error.message);
     else { setNotice("Fare saved and sent to the customer."); await refreshBookings(); }
@@ -230,8 +231,10 @@ export default function VayoApp() {
     const driverId = assignDrafts[booking.id];
     if (!driverId) { setNotice("Choose a verified driver first."); return; }
     setAdminBusyId(booking.id);
-    const { error } = await supabase.from("bookings").update({ driver_id: driverId, status: "assigned" })
-      .eq("id", booking.id).eq("status", "confirmed");
+    const { error } = await supabase.rpc("admin_assign_driver", {
+      p_booking_id: booking.id,
+      p_driver_id: driverId,
+    });
     setAdminBusyId("");
     if (error) setNotice(error.message);
     else { setNotice("Driver assigned."); await refreshBookings(); }
