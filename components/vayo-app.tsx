@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import type { User } from "@supabase/supabase-js";
+import Link from "next/link";
 import {
   ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront, ChevronUp,
   CheckCircle2, Clock3, KeyRound, Loader2, LogOut, MapPin, Menu,
@@ -630,8 +631,8 @@ export default function VayoApp() {
             <button onClick={() => go("driver")}>Driver application &amp; verification</button>
             <p className="footer-column-note">Every driver application is reviewed by the VAYO team.</p>
             <div className="footer-legal-links">
-              <a href="/privacy">Privacy policy</a>
-              <a href="/terms">Terms of service</a>
+              <Link href="/privacy">Privacy policy</Link>
+              <Link href="/terms">Terms of service</Link>
             </div>
           </section>
 
