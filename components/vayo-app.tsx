@@ -346,8 +346,8 @@ export default function VayoApp() {
           <main className="hero">
             <div className="hero-copy-column">
               <div className="eyebrow">A personal driver service in Wayanad</div>
-              <h1>Someone to drive your car.<br/><em>That's VAYO.</em></h1>
-              <p className="hero-copy">Need a driver for your own car? Request one with VAYO. Choose a one-way trip, book by the hour, or keep a driver for the day. We're starting in Mananthavady.</p>
+              <h1>Someone to drive your car.<br/><em>That&apos;s VAYO.</em></h1>
+              <p className="hero-copy">Need a driver for your own car? Request one with VAYO. Choose a one-way trip, book by the hour, or keep a driver for the day. We&apos;re starting in Mananthavady.</p>
               <div className="hero-cta">
                 <button className="button button-dark" onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth" })}>Book a driver <ArrowRight size={15}/></button>
                 <button className="button button-outline" onClick={() => user ? go("driver") : setAuthOpen(true)}>Become a driver <ArrowUpRight size={15}/></button>
@@ -365,7 +365,7 @@ export default function VayoApp() {
               <div className="hero-steps">
                 <div className="hero-step">
                   <span className="hero-step-number">01</span>
-                  <div><small>YOU SEND A REQUEST</small><strong>Tell us where you're going.</strong></div>
+                  <div><small>YOU SEND A REQUEST</small><strong>Tell us where you&apos;re going.</strong></div>
                 </div>
                 <div className="hero-step">
                   <span className="hero-step-number">02</span>
@@ -430,7 +430,7 @@ export default function VayoApp() {
             <div className="booking-panel">
               <aside className="booking-aside">
                 <div className="eyebrow">Make a request</div>
-                <h2>We'll take it from here.</h2>
+                <h2>We&apos;ll take it from here.</h2>
                 <p>Share the basics of your trip. The VAYO team will check the details, send you a fare and arrange a driver once you accept.</p>
                 <div className="aside-note"><ShieldCheck size={17}/> Driver applications are reviewed before approval.</div>
               </aside>
@@ -456,7 +456,7 @@ export default function VayoApp() {
             <div className="help-heading">
               <div className="eyebrow">A real person is behind the service</div>
               <h2>Need a hand?</h2>
-              <p>Whether you need a driver or would like to work with us, here's where to start.</p>
+              <p>Whether you need a driver or would like to work with us, here&apos;s where to start.</p>
             </div>
             <div className="help-cards">
               <article className="help-card">
