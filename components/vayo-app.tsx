@@ -629,6 +629,10 @@ export default function VayoApp() {
             <button onClick={() => goToHomeSection("book-driver")}>Fare shared before confirmation</button>
             <button onClick={() => go("driver")}>Driver application &amp; verification</button>
             <p className="footer-column-note">Every driver application is reviewed by the VAYO team.</p>
+            <div className="footer-legal-links">
+              <a href="/privacy">Privacy policy</a>
+              <a href="/terms">Terms of service</a>
+            </div>
           </section>
 
           <section className="footer-contact">
