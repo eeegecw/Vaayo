@@ -99,11 +99,32 @@ export default function VayoApp() {
       return;
     }
 
+    let lastScrollY = window.scrollY;
+    let scrollDirection: "down" | "up" = "down";
+
+    const handleScrollDirection = () => {
+      const currentScrollY = window.scrollY;
+      if (Math.abs(currentScrollY - lastScrollY) > 2) {
+        scrollDirection = currentScrollY > lastScrollY ? "down" : "up";
+        lastScrollY = currentScrollY;
+      }
+    };
+
+    window.addEventListener("scroll", handleScrollDirection, { passive: true });
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
+        const element = entry.target as HTMLElement;
+
+        // Reveal as the visitor moves down into a section.
+        if (entry.isIntersecting && scrollDirection === "down") {
+          element.classList.add("is-visible");
+        }
+
+        // Hide it again when scrolling back up past its lower edge.
+        if (!entry.isIntersecting && scrollDirection === "up") {
+          element.classList.remove("is-visible");
+        }
       });
     }, {
       threshold: 0.12,
@@ -115,7 +136,10 @@ export default function VayoApp() {
       observer.observe(element);
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScrollDirection);
+    };
   }, [view, authOpen, menuOpen]);
 
   const hydrateAccount = useCallback(async (currentUser: User) => {
