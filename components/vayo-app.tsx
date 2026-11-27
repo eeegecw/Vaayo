@@ -7,7 +7,7 @@ import {
   ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront, ChevronUp,
   CheckCircle2, Clock3, KeyRound, Loader2, LogOut, MapPin, Menu,
   Navigation, ShieldCheck, Sparkles, Users, Wallet, X,
-  ClipboardList, AlertCircle, Facebook, Instagram, Linkedin, Youtube, IndianRupee
+  ClipboardList, AlertCircle, Facebook, Instagram, Linkedin, Youtube, IndianRupee, Phone, Mail
 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -419,6 +419,33 @@ export default function VayoApp() {
                 <div className="field"><label htmlFor="datetime">WHEN DO YOU NEED A DRIVER?</label><input id="datetime" type="datetime-local" value={scheduledAt} onChange={(e) => setScheduledAt(e.target.value)}/></div>
                 <div className="form-foot"><span className="form-hint">No fare is charged at this stage. VAYO will share the admin-approved price with you.</span><button className="button button-dark" type="submit" disabled={bookingBusy}>{bookingBusy ? <Loader2 size={15} className="spinner"/> : null} Request a driver <ArrowRight size={14}/></button></div>
               </form>
+            </div>
+          </section>
+
+          <section className="help-section" id="help">
+            <div className="help-heading">
+              <h2>Need Help?</h2>
+              <p>Questions about booking a driver or joining the VAYO team? Start here.</p>
+            </div>
+            <div className="help-cards">
+              <article className="help-card">
+                <span className="help-icon help-icon-dark"><Phone size={22} fill="currentColor"/></span>
+                <div className="help-card-copy">
+                  <span className="help-card-label">BOOKING SUPPORT</span>
+                  <h3>Need a driver?</h3>
+                  <p>Tell us about your journey and send a booking request to the VAYO team.</p>
+                  <button onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth", block: "start" })}>Go to booking form <ArrowRight size={14}/></button>
+                </div>
+              </article>
+              <article className="help-card">
+                <span className="help-icon help-icon-accent"><Mail size={22} fill="currentColor"/></span>
+                <div className="help-card-copy">
+                  <span className="help-card-label">DRIVER ENQUIRIES</span>
+                  <h3>Drive with VAYO</h3>
+                  <p>Interested in becoming a VAYO driver? Submit your application for review.</p>
+                  <button onClick={() => go("driver")}>Driver application <ArrowRight size={14}/></button>
+                </div>
+              </article>
             </div>
           </section>
         </>
