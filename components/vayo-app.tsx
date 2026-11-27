@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import type { FormEvent } from "react";
 import type { User } from "@supabase/supabase-js";
 import {
   ArrowRight, ArrowUpRight, BadgeCheck, Bell, CalendarClock, CarFront,
@@ -169,7 +170,7 @@ export default function VayoApp() {
     setUser(null); setProfile(null); setBookings([]); setView("home");
   }
 
-  async function submitBooking(event: React.FormEvent<HTMLFormElement>) {
+  async function submitBooking(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setNotice("");
     if (!user) { setAuthOpen(true); setAuthError("Sign in with your mobile number to request a driver."); return; }
     if (!supabase) return;
@@ -191,7 +192,7 @@ export default function VayoApp() {
     }
   }
 
-  async function submitDriverApplication(event: React.FormEvent<HTMLFormElement>) {
+  async function submitDriverApplication(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setNotice("");
     if (!user || !supabase) { setAuthOpen(true); return; }
     if (!appName.trim() || !licenseNumber.trim()) { setNotice("Please complete both fields."); return; }
