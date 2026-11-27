@@ -6,8 +6,8 @@ import type { User } from "@supabase/supabase-js";
 import {
   ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront, ChevronUp,
   CheckCircle2, Clock3, KeyRound, Loader2, LogOut, MapPin, Menu,
-  Navigation, ShieldCheck, Sparkles, Users, Wallet, X,
-  ClipboardList, AlertCircle, Facebook, Instagram, Linkedin, Youtube, IndianRupee, Phone, Mail
+  Navigation, ShieldCheck, Users, Wallet, X,
+  ClipboardList, AlertCircle, Phone, Mail
 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -317,7 +317,9 @@ export default function VayoApp() {
         <div className="top-actions">
           <span className="location-pill"><MapPin size={13}/> Mananthavady, Wayanad</span>
           <div className="desktop-links">
-            <button className={`nav-link ${view === "home" ? "active" : ""}`} onClick={() => go("home")}>Book a driver</button>
+            <button className="nav-link" onClick={() => goToHomeSection("services")}>Services</button>
+            <button className="nav-link" onClick={() => goToHomeSection("charges")}>Charges</button>
+            <button className="nav-link" onClick={() => goToHomeSection("help")}>Help</button>
             {user && <button className={`nav-link ${view === "bookings" ? "active" : ""}`} onClick={() => go("bookings")}>My bookings</button>}
             {user && profile?.role === "driver" && <button className={`nav-link ${view === "driver" ? "active" : ""}`} onClick={() => go("driver")}>Driver desk</button>}
             {user && profile?.role === "admin" && <button className={`nav-link ${view === "admin" ? "active" : ""}`} onClick={() => go("admin")}>Admin</button>}
@@ -326,7 +328,9 @@ export default function VayoApp() {
           <button className="mobile-menu" aria-label="Open menu" onClick={() => setMenuOpen(!menuOpen)}><Menu size={18}/></button>
         </div>
         {menuOpen && <div className="mobile-dropdown">
-          <button onClick={() => go("home")}>Book a driver</button>
+          <button onClick={() => goToHomeSection("services")}>Services</button>
+          <button onClick={() => goToHomeSection("charges")}>Charges</button>
+          <button onClick={() => goToHomeSection("help")}>Help</button>
           {user && <button onClick={() => go("bookings")}>My bookings</button>}
           {user && profile?.role === "driver" && <button onClick={() => go("driver")}>Driver desk</button>}
           {user && profile?.role === "admin" && <button onClick={() => go("admin")}>Admin dashboard</button>}
@@ -340,72 +344,98 @@ export default function VayoApp() {
       {view === "home" && (
         <>
           <main className="hero">
-            <div>
-              <div className="eyebrow">A better way to get there</div>
-              <h1>Your car.<br/>Your journey.<br/><em>Our driver.</em></h1>
-              <p className="hero-copy">A professional driver for the car you already own. Book a trusted driver for a quick trip, a few hours, or the whole day.</p>
+            <div className="hero-copy-column">
+              <div className="eyebrow">A personal driver service in Wayanad</div>
+              <h1>Someone to drive your car.<br/><em>That's VAYO.</em></h1>
+              <p className="hero-copy">Need a driver for your own car? Request one with VAYO. Choose a one-way trip, book by the hour, or keep a driver for the day. We're starting in Mananthavady.</p>
               <div className="hero-cta">
-                <button className="button button-dark" onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth" })}>Book your driver <ArrowRight size={15}/></button>
-                <button className="button button-outline" onClick={() => user ? go("driver") : setAuthOpen(true)}>Drive with VAYO <ArrowUpRight size={15}/></button>
+                <button className="button button-dark" onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth" })}>Book a driver <ArrowRight size={15}/></button>
+                <button className="button button-outline" onClick={() => user ? go("driver") : setAuthOpen(true)}>Become a driver <ArrowUpRight size={15}/></button>
               </div>
               <div className="trust-row">
-                <span className="trust-item"><ShieldCheck size={14}/> Verified drivers</span>
-                <span className="trust-item"><Clock3 size={14}/> Flexible bookings</span>
-                <span className="trust-item"><MapPin size={14}/> Starting in Wayanad</span>
+                <span className="trust-item"><ShieldCheck size={14}/> Driver applications reviewed</span>
+                <span className="trust-item"><MapPin size={14}/> Starting in Mananthavady</span>
               </div>
             </div>
-            <div className="hero-visual">
-              <div className="visual-top"><span className="visual-label">THE VAYO EXPERIENCE</span><span className="visual-status">● MANANTHAVADY</span></div>
-              <div className="car-stage"><div className="car-glow"/><div className="car-illustration"><div className="car-window"/><div className="car-body"/><div className="car-wheel left"/><div className="car-wheel right"/></div></div>
-              <div className="visual-bottom"><span>YOUR VEHICLE, YOUR RULES<strong>Arrive with ease.</strong></span><Sparkles size={22} color="#c8a873"/></div>
-            </div>
+            <aside className="hero-visual" aria-label="How VAYO works">
+              <div className="hero-visual-top">
+                <span>HOW IT WORKS</span>
+                <span>MANANTHAVADY · WAYANAD</span>
+              </div>
+              <div className="hero-steps">
+                <div className="hero-step">
+                  <span className="hero-step-number">01</span>
+                  <div><small>YOU SEND A REQUEST</small><strong>Tell us where you're going.</strong></div>
+                </div>
+                <div className="hero-step">
+                  <span className="hero-step-number">02</span>
+                  <div><small>WE SHARE THE FARE</small><strong>Review it before you decide.</strong></div>
+                </div>
+                <div className="hero-step">
+                  <span className="hero-step-number">03</span>
+                  <div><small>WE ARRANGE A DRIVER</small><strong>Your car stays yours.</strong></div>
+                </div>
+              </div>
+              <div className="hero-visual-bottom"><span>VAYO / LOCAL DRIVER SERVICE</span><span>01 — 03</span></div>
+            </aside>
           </main>
 
           <section className="pricing-section" id="charges">
             <div className="pricing-heading">
-              <div className="eyebrow">Simple, transparent pricing</div>
-              <h2>Know your fare before you confirm.</h2>
-              <p>Every journey is different. VAYO reviews your trip and shares the fare with you before your booking is confirmed, so you can decide with confidence.</p>
+              <div className="eyebrow">Before you book</div>
+              <h2>No guesswork on the fare.</h2>
+              <p>Send us the details of your trip. The VAYO team will review the request and share a price for you to accept before the booking is confirmed.</p>
             </div>
-
             <div className="pricing-cards">
               <article className="pricing-card">
-                <span className="pricing-icon"><IndianRupee size={22}/></span>
-                <h3>Fare Shared Upfront</h3>
-                <p>Get a clear quote from the VAYO team before your booking is confirmed.</p>
+                <span className="pricing-step">01 / REQUEST</span>
+                <h3>Tell us about the trip</h3>
+                <p>Choose one-way, hourly or full-day service and share your pickup details.</p>
               </article>
               <article className="pricing-card">
-                <span className="pricing-icon"><Clock3 size={22}/></span>
-                <h3>Choose Your Trip Type</h3>
-                <p>Book a one-way journey, an hourly driver, or a full-day service.</p>
+                <span className="pricing-step">02 / REVIEW</span>
+                <h3>See your fare first</h3>
+                <p>We send you the fare through your VAYO account. No price is made up on this page.</p>
               </article>
               <article className="pricing-card">
-                <span className="pricing-icon"><ShieldCheck size={22}/></span>
-                <h3>You Stay in Control</h3>
-                <p>Review the quoted fare and accept or decline it from your VAYO account.</p>
+                <span className="pricing-step">03 / DECIDE</span>
+                <h3>Accept when ready</h3>
+                <p>Review the quote and choose whether to accept it. The booking moves ahead after you agree.</p>
               </article>
             </div>
-
             <button className="pricing-cta" onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
-              View Booking Options <ArrowRight size={16}/>
+              See booking form <ArrowRight size={16}/>
             </button>
           </section>
 
           <section className="section" id="services">
-            <div className="section-head"><div><div className="eyebrow">One service, your way</div><h2>Choose how you travel.</h2><p className="section-sub">A driver that fits the day you have planned.</p></div></div>
+            <div className="section-head">
+              <div>
+                <div className="eyebrow">Choose what suits your day</div>
+                <h2>Three ways to book.</h2>
+                <p className="section-sub">The driver comes to you and drives the car you already own.</p>
+              </div>
+            </div>
             <div className="service-grid">
               {services.map((item, index) => <button key={item.id} className="service-card" onClick={() => { setService(item.id); document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth" }); }} style={{ textAlign: "left" }}>
-                <span className="service-icon">{index === 0 ? <Navigation size={20}/> : index === 1 ? <Clock3 size={20}/> : <CalendarClock size={20}/>}</span>
-                <h3>{item.title}</h3><p>{item.description}</p>
+                <span className="service-number">0{index + 1} / 03</span>
+                <h3>{item.title}</h3>
+                <p>{item.id === "one_way" ? "A driver for one trip from your pickup point to your destination." : item.id === "hourly" ? "Keep a driver with you for the number of hours you need." : "Book a driver for the day, for errands, visits or a longer outing."}</p>
+                <span className="service-card-link">Choose this service <ArrowRight size={14}/></span>
               </button>)}
             </div>
           </section>
 
           <section className="booking-wrap" id="book-driver">
             <div className="booking-panel">
-              <aside className="booking-aside"><div className="eyebrow">Start with the details</div><h2>A good journey starts with the right driver.</h2><p>Tell us where you&apos;re going. Our team will review your request and confirm the fare before your booking is final.</p><div className="aside-note"><ShieldCheck size={17}/> Driver verification is part of every VAYO application.</div></aside>
+              <aside className="booking-aside">
+                <div className="eyebrow">Make a request</div>
+                <h2>We'll take it from here.</h2>
+                <p>Share the basics of your trip. The VAYO team will check the details, send you a fare and arrange a driver once you accept.</p>
+                <div className="aside-note"><ShieldCheck size={17}/> Driver applications are reviewed before approval.</div>
+              </aside>
               <form className="booking-form" onSubmit={submitBooking}>
-                <h3 className="form-title">Book a driver</h3><p className="form-sub">Request a driver for your own car.</p>
+                <h3 className="form-title">Where do you need a driver?</h3><p className="form-sub">This request is for a driver to take your own car.</p>
                 <div className="service-options">
                   {services.map((item, index) => <button type="button" key={item.id} className={`service-option ${service === item.id ? "selected" : ""}`} onClick={() => setService(item.id)}>
                     {index === 0 ? <Navigation size={16}/> : index === 1 ? <Clock3 size={16}/> : <CalendarClock size={16}/>}<strong>{item.title}</strong>
@@ -424,26 +454,27 @@ export default function VayoApp() {
 
           <section className="help-section" id="help">
             <div className="help-heading">
-              <h2>Need Help?</h2>
-              <p>Questions about booking a driver or joining the VAYO team? Start here.</p>
+              <div className="eyebrow">A real person is behind the service</div>
+              <h2>Need a hand?</h2>
+              <p>Whether you need a driver or would like to work with us, here's where to start.</p>
             </div>
             <div className="help-cards">
               <article className="help-card">
                 <span className="help-icon help-icon-dark"><Phone size={22} fill="currentColor"/></span>
                 <div className="help-card-copy">
-                  <span className="help-card-label">BOOKING SUPPORT</span>
-                  <h3>Need a driver?</h3>
-                  <p>Tell us about your journey and send a booking request to the VAYO team.</p>
-                  <button onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth", block: "start" })}>Go to booking form <ArrowRight size={14}/></button>
+                  <span className="help-card-label">FOR CUSTOMERS</span>
+                  <h3>Looking for a driver?</h3>
+                  <p>Send us your trip details and we’ll get back to you with a fare.</p>
+                  <button onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth", block: "start" })}>Make a booking request <ArrowRight size={14}/></button>
                 </div>
               </article>
               <article className="help-card">
                 <span className="help-icon help-icon-accent"><Mail size={22} fill="currentColor"/></span>
                 <div className="help-card-copy">
-                  <span className="help-card-label">DRIVER ENQUIRIES</span>
-                  <h3>Drive with VAYO</h3>
-                  <p>Interested in becoming a VAYO driver? Submit your application for review.</p>
-                  <button onClick={() => go("driver")}>Driver application <ArrowRight size={14}/></button>
+                  <span className="help-card-label">FOR DRIVERS</span>
+                  <h3>Interested in driving?</h3>
+                  <p>Apply to join the local driver network. We’ll review your details before approval.</p>
+                  <button onClick={() => go("driver")}>Read about applying <ArrowRight size={14}/></button>
                 </div>
               </article>
             </div>
@@ -507,15 +538,8 @@ export default function VayoApp() {
               <span className="brand-mark">V</span>
               <span className="brand-name">VAYO</span>
             </button>
-            <p className="footer-description">A dependable driver for the car you already own. Your car, your journey — our responsibility.</p>
-            <div className="footer-socials" aria-label="Social channels coming soon">
-              <span title="Facebook profile coming soon"><Facebook size={17}/></span>
-              <span title="Instagram profile coming soon"><Instagram size={17}/></span>
-              <span title="X profile coming soon" className="footer-x-mark">X</span>
-              <span title="LinkedIn profile coming soon"><Linkedin size={17}/></span>
-              <span title="YouTube profile coming soon"><Youtube size={17}/></span>
-            </div>
-            <span className="footer-note">Social channels coming soon</span>
+            <p className="footer-description">A local service for people who need someone else to drive the car they already own.</p>
+            <span className="footer-note">Starting in Mananthavady, Wayanad</span>
           </section>
 
           <nav className="footer-column" aria-label="Quick links">
