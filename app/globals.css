@@ -650,3 +650,128 @@ th,td { border-bottom-color: #ebe8df; }
   .page-content { padding: 35px 20px 60px; }
   .page-heading h1 { font-size: 35px; }
 }
+
+
+/* Motion system: small, purposeful transitions rather than constant movement */
+html { scroll-behavior: smooth; }
+
+.motion-ready .hero-copy-column {
+  animation: vayo-enter .78s cubic-bezier(.2,.75,.25,1) both;
+}
+.motion-ready .hero-visual {
+  animation: vayo-enter .86s cubic-bezier(.2,.75,.25,1) .12s both;
+}
+.motion-ready .hero-copy-column .eyebrow {
+  animation: vayo-soft-in .55s ease-out .08s both;
+}
+.motion-ready .hero-copy-column h1 {
+  animation: vayo-soft-in .72s cubic-bezier(.2,.75,.25,1) .14s both;
+}
+.motion-ready .hero-copy-column .hero-copy {
+  animation: vayo-soft-in .7s ease-out .24s both;
+}
+.motion-ready .hero-copy-column .hero-cta {
+  animation: vayo-soft-in .65s ease-out .34s both;
+}
+.motion-ready .hero-step {
+  animation: vayo-soft-in .62s ease-out both;
+}
+.motion-ready .hero-step:nth-child(2) { animation-delay: .12s; }
+.motion-ready .hero-step:nth-child(3) { animation-delay: .24s; }
+
+.reveal-on-scroll {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition:
+    opacity .68s cubic-bezier(.2,.7,.25,1),
+    transform .68s cubic-bezier(.2,.7,.25,1);
+}
+.motion-ready .reveal-on-scroll:not(.is-visible) {
+  opacity: 0;
+  transform: translate3d(0, 23px, 0);
+}
+.pricing-cards .pricing-card:nth-child(2),
+.service-grid .service-card:nth-child(2),
+.help-cards .help-card:nth-child(2) { transition-delay: .09s; }
+.pricing-cards .pricing-card:nth-child(3),
+.service-grid .service-card:nth-child(3) { transition-delay: .18s; }
+.footer-main .footer-column:nth-of-type(2) { transition-delay: .08s; }
+.footer-main .footer-contact { transition-delay: .15s; }
+
+.page-content {
+  animation: vayo-page-in .42s cubic-bezier(.2,.75,.25,1) both;
+}
+.modal-backdrop {
+  animation: vayo-backdrop-in .2s ease-out both;
+}
+.modal {
+  transform-origin: center;
+  animation: vayo-pop-in .28s cubic-bezier(.18,.8,.25,1.15) both;
+}
+.mobile-dropdown {
+  transform-origin: top right;
+  animation: vayo-menu-in .2s cubic-bezier(.2,.75,.25,1) both;
+}
+.button, .pricing-cta, .footer-portal-actions button, .footer-back-top,
+.help-card button, .footer-column button, .nav-link, .service-card-link {
+  transition:
+    color .18s ease,
+    background-color .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    transform .18s ease;
+}
+.button:hover, .pricing-cta:hover, .footer-portal-actions button:hover {
+  transform: translateY(-2px);
+}
+.service-card:hover .service-card-link,
+.help-card button:hover { gap: 12px; }
+.service-option, .field input, .field select, .input, .modal-close {
+  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+.footer-socials span {
+  transition: transform .18s ease, background-color .18s ease;
+}
+.footer-socials span:hover {
+  transform: translateY(-3px);
+  background: var(--gold);
+}
+
+@keyframes vayo-enter {
+  from { opacity: 0; transform: translate3d(0, 25px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes vayo-soft-in {
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes vayo-page-in {
+  from { opacity: 0; transform: translate3d(0, 9px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+@keyframes vayo-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes vayo-pop-in {
+  from { opacity: 0; transform: translate3d(0, 12px, 0) scale(.975); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@keyframes vayo-menu-in {
+  from { opacity: 0; transform: translate3d(0, -7px, 0) scale(.985); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .motion-ready .reveal-on-scroll:not(.is-visible) {
+    opacity: 1;
+    transform: none;
+  }
+}
