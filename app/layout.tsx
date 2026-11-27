@@ -2,14 +2,14 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "VAYO | Your car. Your journey. Our driver.",
-  description: "Book a professional driver for your own car in Mananthavady, Wayanad.",
+  title: "VAYO — A driver for your car",
+  description: "Book a driver for your own car in Mananthavady and nearby parts of Wayanad. One-way, hourly and full-day bookings.",
   applicationName: "VAYO",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "VAYO" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#121310",
+  themeColor: "#243b31",
   width: "device-width",
   initialScale: 1,
 };
