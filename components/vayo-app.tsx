@@ -650,23 +650,22 @@ export default function VayoApp() {
       {view === "home" && (
         <>
           <main className="hero vayo-poster-hero" id="home">
-            <div className="poster-topline">
-              <div className="poster-meta">
-                <span>SERVICE AREA</span>
-                <strong>MANANTHAVADY</strong>
-              </div>
-              <div className="poster-edition">VAYO <span>·</span> YOUR PERSONAL DRIVER</div>
-              <div className="poster-meta poster-meta-right">
-                <span>BOOKING OPTIONS</span>
-                <strong>ONE-WAY · HOURLY · FULL-DAY</strong>
-              </div>
-            </div>
-
             <div className="poster-title-wrap">
               <h1 className="poster-title">
                 <span>THE VAYO</span>
-                <span>DRIVE</span>
               </h1>
+            </div>
+
+            <div className="poster-headline-row">
+              <div className="poster-meta poster-meta-large">
+                <span>STARTING IN</span>
+                <strong>WAYANAD</strong>
+              </div>
+              <h2 className="poster-drive-title">DRIVE</h2>
+              <div className="poster-meta poster-meta-right poster-meta-large">
+                <span>YOUR TRIP, YOUR WAY</span>
+                <strong>ONE-WAY · HOURLY · FULL-DAY</strong>
+              </div>
             </div>
 
             <div className="poster-rule" />
@@ -680,11 +679,9 @@ export default function VayoApp() {
                 <button className="poster-pill-button" onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
                   BOOK A DRIVER <ArrowRight size={15}/>
                 </button>
-                <small>ONE-WAY · HOURLY · FULL-DAY</small>
               </div>
 
               <div className="poster-car-scene" aria-label="Illustration of a light-blue classic convertible car">
-                <div className="poster-car-caption">A BETTER WAY TO GET THERE</div>
                 <svg className="poster-car-svg" viewBox="0 0 700 330" role="img" aria-labelledby="poster-car-title poster-car-desc">
                   <title id="poster-car-title">VAYO classic convertible</title>
                   <desc id="poster-car-desc">A light-blue open-top car, drawn in a flat retro poster style.</desc>
@@ -725,7 +722,6 @@ export default function VayoApp() {
                     <path className="poster-car-top-highlight" d="M287 92q18-17 44-17h107q26 0 45 24"/>
                   </g>
                 </svg>
-                <span className="poster-car-footnote">DRIVEN BY VAYO <span>✳</span> MADE FOR YOUR JOURNEY</span>
               </div>
 
               <div className="poster-cta-column poster-cta-right">
@@ -734,7 +730,6 @@ export default function VayoApp() {
                 <button className="poster-pill-button" onClick={() => user ? go("driver") : openAuth("signup")}>
                   BECOME A DRIVER <ArrowUpRight size={15}/>
                 </button>
-                <small>DRIVER APPLICATIONS REVIEWED</small>
               </div>
             </div>
 
