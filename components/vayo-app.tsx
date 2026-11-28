@@ -406,6 +406,13 @@ export default function VayoApp() {
     if (next === "driver") void refreshBookings();
   }
 
+  function goHome() {
+    go("home");
+    window.setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 60);
+  }
+
   function goToHomeSection(sectionId: string) {
     setView("home");
     setMenuOpen(false);
@@ -451,7 +458,7 @@ export default function VayoApp() {
   return (
     <div className="app-shell" id="top">
       <header className="topbar">
-        <a href="#" className="brand" onClick={(e) => { e.preventDefault(); go("home"); }}>
+        <a href="/" className="brand" aria-label="VAYO home" title="Go to home" onClick={(e) => { e.preventDefault(); goHome(); }}>
           <span className="brand-mark">V</span>
           <span><span className="brand-name">VAYO</span><span className="brand-tag">PERSONAL DRIVER SERVICE</span></span>
         </a>
@@ -570,7 +577,7 @@ export default function VayoApp() {
         {menuOpen && (
           <div className="mobile-nav-overlay" role="dialog" aria-modal="true" aria-label="VAYO navigation">
             <div className="mobile-nav-top">
-              <a href="#" className="brand" onClick={(e) => { e.preventDefault(); go("home"); }}>
+              <a href="/" className="brand" aria-label="VAYO home" title="Go to home" onClick={(e) => { e.preventDefault(); goHome(); }}>
                 <span className="brand-mark">V</span>
                 <span><span className="brand-name">VAYO</span><span className="brand-tag">PERSONAL DRIVER SERVICE</span></span>
               </a>
