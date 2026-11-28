@@ -843,3 +843,67 @@ html { scroll-behavior: smooth; }
   .legal-footer { padding: 18px 20px; align-items: flex-start; flex-direction: column; }
   .legal-footer > div { gap: 15px; }
 }
+
+/* Hero CTA buttons — matched to the supplied VAYO reference */
+.hero-cta .button {
+  min-height: 52px;
+  padding: 0 20px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  gap: 12px;
+  box-shadow: none;
+  white-space: nowrap;
+  transition:
+    color .2s ease,
+    background-color .2s ease,
+    border-color .2s ease,
+    transform .2s ease;
+}
+.hero-cta .button-dark {
+  min-width: 170px;
+  background: #243b31;
+  border-color: #243b31;
+  color: #f6f3eb;
+}
+.hero-cta .button-dark:hover {
+  background: #334b40;
+  border-color: #334b40;
+  transform: translateY(-1px);
+}
+.hero-cta .button-outline {
+  min-width: 196px;
+  background: transparent;
+  border-color: #a4ada4;
+  color: #263e33;
+}
+.hero-cta .button-outline:hover {
+  background: #eae8df;
+  border-color: #87968a;
+  transform: translateY(-1px);
+}
+.hero-cta .button svg {
+  width: 17px;
+  height: 17px;
+  flex: 0 0 auto;
+  stroke-width: 1.8;
+  transition: transform .2s ease;
+}
+.hero-cta .button-dark:hover svg { transform: translateX(3px); }
+.hero-cta .button-outline:hover svg { transform: translate(2px, -2px); }
+.hero-cta .button:focus-visible {
+  outline: 2px solid #a66f50;
+  outline-offset: 3px;
+}
+
+@media (max-width: 480px) {
+  .hero-cta { gap: 10px; }
+  .hero-cta .button {
+    min-width: 0;
+    flex: 1 1 100%;
+    justify-content: space-between;
+  }
+}
