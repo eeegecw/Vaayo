@@ -4098,3 +4098,84 @@ td { color: #38303d; }
     font-size: clamp(7px, 2vw, 9px);
   }
 }
+
+/* Custom VAYO steering-wheel cursor for desktop pointers */
+.vayo-custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 30000;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+  color: #72558a;
+  filter: drop-shadow(0 2px 3px rgba(48, 31, 57, .22));
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+  transform-origin: center;
+  transition: opacity .14s ease, transform .075s cubic-bezier(.2,.7,.25,1);
+  will-change: transform, opacity;
+}
+.vayo-custom-cursor.is-visible { opacity: 1; }
+.vayo-custom-cursor svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.cursor-wheel-rim {
+  fill: rgba(247, 241, 248, .92);
+  stroke: currentColor;
+  stroke-width: 2.25;
+}
+.cursor-wheel-inner-rim {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: .7;
+  opacity: .42;
+}
+.cursor-wheel-spokes {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.cursor-wheel-hub {
+  fill: #72558a;
+  stroke: #f7f1f8;
+  stroke-width: 1.15;
+}
+.cursor-wheel-bolt {
+  fill: #72558a;
+  stroke: #f7f1f8;
+  stroke-width: .45;
+}
+.vayo-custom-cursor.is-pressed {
+  filter: drop-shadow(0 1px 2px rgba(48, 31, 57, .26));
+}
+.vayo-custom-cursor.is-pressed svg { transform: scale(.88); }
+
+@media (hover: hover) and (pointer: fine) {
+  html.vayo-custom-cursor-enabled,
+  html.vayo-custom-cursor-enabled body,
+  html.vayo-custom-cursor-enabled body *:not(input):not(textarea):not([contenteditable="true"]) {
+    cursor: none !important;
+  }
+  html.vayo-custom-cursor-enabled input,
+  html.vayo-custom-cursor-enabled textarea,
+  html.vayo-custom-cursor-enabled [contenteditable="true"] {
+    cursor: text !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vayo-custom-cursor { transition: none; }
+  .vayo-custom-cursor.is-pressed svg { transform: none; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .vayo-custom-cursor { display: none; }
+}
