@@ -3711,3 +3711,109 @@ td { color: #38303d; }
     transition: none !important;
   }
 }
+
+/* Poster hero re-coloured to VAYO's original lavender / dark-ink identity */
+.hero.vayo-poster-hero {
+  background:
+    radial-gradient(ellipse 58% 48% at 50% 82%, rgba(190, 157, 207, .28), transparent 72%),
+    linear-gradient(155deg, #f7f2f5 0%, #f0e6f0 52%, #e5d0ec 100%);
+  border-color: rgba(39, 25, 44, .18);
+  color: #100d13;
+}
+.hero.vayo-poster-hero::before {
+  background:
+    radial-gradient(ellipse at 50% 72%, rgba(146, 111, 164, .13), transparent 58%),
+    radial-gradient(ellipse at 8% 5%, rgba(255, 255, 255, .42), transparent 42%);
+}
+.poster-meta,
+.poster-edition,
+.poster-tagline,
+.poster-subline,
+.poster-cta-column,
+.poster-cta-column strong {
+  color: #171219;
+}
+.poster-meta span,
+.poster-cta-eyebrow { color: #765b86; }
+.poster-edition span { color: #a98cb8; }
+.poster-meta strong { color: #302438; }
+.poster-title { color: #100d13; }
+.poster-rule,
+.poster-bottom-rule {
+  background: #6e557d;
+  opacity: .42;
+}
+.poster-tagline { color: #302438; }
+.poster-subline,
+.poster-cta-column small,
+.poster-car-caption,
+.poster-car-footnote,
+.poster-bottom-meta {
+  color: #76627f;
+}
+.poster-cta-eyebrow { color: #765b86; }
+.poster-cta-column strong { color: #171219; }
+.poster-pill-button {
+  border-color: #735a82;
+  background: rgba(255,255,255,.08);
+  color: #34243d;
+}
+.poster-pill-button:hover {
+  border-color: #302139;
+  background: #302139;
+  color: #f7f1f6;
+}
+.poster-pill-button:focus-visible {
+  outline-color: #171219;
+}
+.poster-car-ground { fill: #211725; }
+.poster-road-line {
+  stroke: rgba(111, 82, 128, .62);
+}
+.poster-car-rear-shadow { fill: #211725; }
+.poster-car-body {
+  fill: #bca6c9;
+  stroke: #493650;
+}
+.poster-car-side-light { fill: #e4d8eb; }
+.poster-car-window-frame { fill: #241a2a; }
+.poster-car-window {
+  fill: #65586c;
+  stroke: #493650;
+}
+.poster-car-windshield-line { stroke: #d4c1df; }
+.poster-car-door-line,
+.poster-car-door-handle { stroke: #735b82; }
+.poster-car-front-grille { fill: #171219; }
+.poster-car-grille-line { stroke: #d9cede; }
+.poster-car-headlight {
+  fill: #fbf7fa;
+  stroke: #735b82;
+}
+.poster-car-tail-light { fill: #765b86; }
+.poster-car-bumper,
+.poster-car-top-highlight { stroke: #241a2a; }
+.poster-wheel-outer {
+  fill: #171219;
+  stroke: #735b82;
+}
+.poster-wheel-inner {
+  fill: #f0e6f0;
+  stroke: #241a2a;
+}
+.poster-wheel-hub {
+  fill: #bca6c9;
+  stroke: #735b82;
+}
+.poster-wheel-spokes { stroke: #241a2a; }
+.poster-wheel-center { fill: #171219; }
+.poster-car-footnote span { color: #765b86; }
+.poster-bottom-meta { color: #76627f; }
+
+@media (max-width: 680px) {
+  .hero.vayo-poster-hero {
+    background:
+      radial-gradient(ellipse at 50% 78%, rgba(190,157,207,.26), transparent 70%),
+      linear-gradient(155deg, #f7f2f5 0%, #f0e6f0 52%, #e5d0ec 100%);
+  }
+}
