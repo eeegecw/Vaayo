@@ -1370,3 +1370,6 @@ html { scroll-behavior: smooth; }
     animation: none !important;
   }
 }
+
+/* Keep fixed navigation overlays attached to the viewport */
+.topbar { backdrop-filter: none; -webkit-backdrop-filter: none; }
