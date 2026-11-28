@@ -1816,3 +1816,33 @@ th, td { border-bottom-color: #303030; }
 @media (prefers-reduced-motion: reduce) {
   * { scroll-behavior: auto !important; }
 }
+
+/* Monochrome button contrast */
+.button-dark,
+.button-gold {
+  background: #f3f3f3;
+  border-color: #f3f3f3;
+  color: #050505;
+  box-shadow: none;
+}
+.button-dark:hover,
+.button-gold:hover {
+  background: #d8d8d8;
+  border-color: #d8d8d8;
+  color: #050505;
+}
+.button-outline {
+  background: transparent;
+  border-color: #565656;
+  color: #f2f2f2;
+}
+.button-outline:hover {
+  background: #202020;
+  border-color: #8c8c8c;
+  color: #fff;
+}
+.button-light {
+  background: #242424;
+  color: #f1f1f1;
+}
+.button-light:hover { background: #333; }
