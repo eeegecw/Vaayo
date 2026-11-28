@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
-import type { FormEvent } from "react";
+import type { FormEvent, PointerEvent as ReactPointerEvent } from "react";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import {
@@ -415,6 +415,37 @@ export default function VayoApp() {
     window.setTimeout(() => {
       document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 80);
+  }
+
+  function handleFooterPointerMove(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const stage = event.currentTarget;
+    const bounds = stage.getBoundingClientRect();
+    if (!bounds.width || !bounds.height) return;
+
+    const x = Math.max(-1, Math.min(1, (event.clientX - (bounds.left + bounds.width / 2)) / (bounds.width / 2)));
+    const y = Math.max(-1, Math.min(1, (event.clientY - (bounds.top + bounds.height / 2)) / (bounds.height / 2)));
+    const cars = stage.querySelectorAll<HTMLElement>(".footer-floating-car");
+    const response = [
+      { x: 17, y: 12 },
+      { x: 11, y: 8 },
+      { x: 14, y: 10 },
+    ];
+
+    cars.forEach((car, index) => {
+      const strength = response[index] ?? response[0];
+      car.style.setProperty("--mouse-x", `${x * strength.x}px`);
+      car.style.setProperty("--mouse-y", `${y * strength.y}px`);
+    });
+  }
+
+  function resetFooterPointer() {
+    const cars = document.querySelectorAll<HTMLElement>(".footer-showcase-stage .footer-floating-car");
+    cars.forEach((car) => {
+      car.style.setProperty("--mouse-x", "0px");
+      car.style.setProperty("--mouse-y", "0px");
+    });
   }
 
   return (
@@ -842,7 +873,13 @@ export default function VayoApp() {
           </div>
         </div>
 
-        <div className="footer-showcase-stage" aria-label="VAYO — your car, your journey, our driver">
+        <div
+          className="footer-showcase-stage"
+          aria-label="VAYO — your car, your journey, our driver"
+          onPointerMove={handleFooterPointerMove}
+          onPointerLeave={resetFooterPointer}
+          onPointerCancel={resetFooterPointer}
+        >
           <span className="footer-stage-caption">MADE FOR THE WAY YOU MOVE</span>
 
           <div className="footer-floating-car footer-car-sedan" aria-hidden="true">
