@@ -4056,3 +4056,45 @@ td { color: #38303d; }
     font-size: 7px;
   }
 }
+
+/* Poster hero without the second-line DRIVE heading */
+.poster-headline-row {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: end;
+  gap: 24px;
+  margin-top: 3px;
+}
+.poster-meta-large {
+  align-self: end;
+  padding-bottom: 9px;
+}
+.poster-meta-right.poster-meta-large {
+  align-items: flex-end;
+  justify-items: end;
+}
+.poster-title-wrap { margin-bottom: 0; }
+.poster-rule { margin-top: clamp(17px, 2.4vh, 27px); }
+
+@media (max-width: 1050px) and (min-width: 681px) {
+  .poster-headline-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+@media (max-width: 680px) {
+  .poster-headline-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: end;
+    margin-top: 8px;
+  }
+  .poster-meta-large {
+    padding: 0 0 7px;
+  }
+  .poster-meta-large strong {
+    font-size: clamp(15px, 4.2vw, 21px);
+  }
+  .poster-meta-right.poster-meta-large strong {
+    font-size: clamp(7px, 2vw, 9px);
+  }
+}
