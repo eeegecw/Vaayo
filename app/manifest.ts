@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: "Book a professional driver for your own car.",
     start_url: "/",
     display: "standalone",
-    background_color: "#f5f3ed",
-    theme_color: "#121310",
+    background_color: "#f5eef4",
+    theme_color: "#e5d0ec",
     icons: [],
   };
 }
