@@ -3334,3 +3334,380 @@ td { color: #38303d; }
   .service-card-link { margin-top: 18px; padding-top: 0; }
   .pricing-cta { margin-top: 20px; }
 }
+
+/* VAYO animated road-trip poster hero */
+.hero.vayo-poster-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  min-height: min(760px, calc(100svh - 76px));
+  margin: 10px 12px 0;
+  padding: clamp(22px, 3vw, 42px) clamp(20px, 4.2vw, 62px) 22px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  background: #fff8f1;
+  color: #000;
+  isolation: isolate;
+}
+.vayo-poster-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 68%, rgba(0,110,255,.045), transparent 50%);
+}
+.poster-topline {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  min-height: 42px;
+}
+.poster-meta {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  color: #006eff;
+  font-family: 'DM Sans', Arial, sans-serif;
+  letter-spacing: -.02em;
+}
+.poster-meta span {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.poster-meta strong {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+.poster-meta-right { justify-items: end; text-align: right; }
+.poster-meta-right strong { font-size: 15px; }
+.poster-edition {
+  color: #006eff;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .16em;
+  text-align: center;
+}
+.poster-edition span { padding: 0 5px; color: #8abaff; }
+.poster-title-wrap {
+  width: 100%;
+  margin: clamp(12px, 2vh, 22px) auto 0;
+  overflow: hidden;
+}
+.poster-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  color: #006eff;
+  font-family: Impact, 'Arial Narrow', 'Roboto Condensed', 'Arial Black', sans-serif;
+  font-size: clamp(64px, 11.7vw, 158px);
+  font-stretch: condensed;
+  font-weight: 900;
+  line-height: .73;
+  letter-spacing: -.065em;
+  text-align: center;
+  text-transform: uppercase;
+  font-feature-settings: "kern", "liga";
+}
+.poster-title span {
+  display: block;
+  white-space: nowrap;
+  transform: scaleX(.97);
+  transform-origin: center;
+  animation: poster-title-rise .8s cubic-bezier(.18,.75,.23,1) both;
+}
+.poster-title span + span { animation-delay: .13s; }
+.poster-rule,
+.poster-bottom-rule {
+  width: 100%;
+  height: 1px;
+  flex: 0 0 1px;
+  background: #006eff;
+  opacity: .62;
+}
+.poster-rule { margin-top: clamp(19px, 3vh, 30px); }
+.poster-tagline {
+  margin: 16px 0 0;
+  color: #006eff;
+  font-size: clamp(13px, 1.5vw, 19px);
+  font-weight: 300;
+  letter-spacing: -.025em;
+  line-height: 1.25;
+  text-align: center;
+  animation: poster-fade-up .7s .2s both;
+}
+.poster-subline {
+  margin: 6px 0 0;
+  color: rgba(0,110,255,.73);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: .16em;
+  text-align: center;
+  animation: poster-fade-up .7s .28s both;
+}
+.poster-main-row {
+  display: grid;
+  grid-template-columns: minmax(170px, .72fr) minmax(300px, 1.7fr) minmax(170px, .72fr);
+  align-items: center;
+  gap: clamp(14px, 2.2vw, 34px);
+  width: 100%;
+  max-width: 1420px;
+  margin: clamp(18px, 2.4vh, 30px) auto 10px;
+}
+.poster-cta-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  gap: 11px;
+  color: #006eff;
+  text-align: center;
+  animation: poster-fade-up .75s .22s both;
+}
+.poster-cta-eyebrow {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: .15em;
+  line-height: 1.3;
+}
+.poster-cta-column strong {
+  color: #006eff;
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: clamp(25px, 2.7vw, 39px);
+  font-weight: 300;
+  line-height: .98;
+  letter-spacing: -.045em;
+  text-transform: uppercase;
+}
+.poster-pill-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 42px;
+  margin-top: 3px;
+  padding: 9px 20px;
+  border: 1.5px solid #006eff;
+  border-radius: 60px;
+  background: transparent;
+  color: #006eff;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: .035em;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background .22s ease, color .22s ease, transform .22s ease;
+}
+.poster-pill-button:hover {
+  transform: translateY(-2px);
+  background: #006eff;
+  color: #fff8f1;
+}
+.poster-pill-button:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 4px;
+}
+.poster-cta-column small {
+  max-width: 220px;
+  color: rgba(0,110,255,.72);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: .09em;
+  line-height: 1.5;
+}
+.poster-car-scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  width: 100%;
+  padding: 4px 0 0;
+}
+.poster-car-caption,
+.poster-car-footnote {
+  color: rgba(0,110,255,.7);
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: .19em;
+  line-height: 1.4;
+  text-align: center;
+}
+.poster-car-caption { margin-bottom: -1px; }
+.poster-car-svg {
+  display: block;
+  width: min(100%, 570px);
+  height: auto;
+  overflow: visible;
+  animation: poster-car-cruise 4.8s ease-in-out infinite;
+}
+.poster-car-ground { fill: #000; }
+.poster-road-line {
+  fill: none;
+  stroke: rgba(0,110,255,.65);
+  stroke-width: 2;
+  stroke-dasharray: 22 18;
+  animation: poster-road-move 1.9s linear infinite;
+}
+.poster-car-body-group { transform-origin: 50% 70%; }
+.poster-car-rear-shadow { fill: #000; }
+.poster-car-body {
+  fill: #83bcff;
+  stroke: #006eff;
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+.poster-car-side-light { fill: #b8d9ff; opacity: .92; }
+.poster-car-window-frame { fill: #000; }
+.poster-car-window { fill: #20242d; stroke: #006eff; stroke-width: 3; }
+.poster-car-windshield-line { fill: none; stroke: #8abfff; stroke-width: 4; }
+.poster-car-door-line,
+.poster-car-door-handle { fill: none; stroke: #006eff; stroke-width: 2.5; opacity: .75; }
+.poster-car-front-grille { fill: #050505; }
+.poster-car-grille-line { fill: none; stroke: #dcecff; stroke-width: 2.4; opacity: .88; }
+.poster-car-headlight { fill: #fff8f1; stroke: #006eff; stroke-width: 2; }
+.poster-car-tail-light { fill: #006eff; }
+.poster-car-bumper,
+.poster-car-top-highlight { fill: none; stroke: #000; stroke-width: 5; stroke-linecap: round; }
+.poster-car-wheel { transform-box: fill-box; transform-origin: center; }
+.poster-wheel-outer { fill: #000; stroke: #006eff; stroke-width: 3; }
+.poster-wheel-inner { fill: #fff8f1; stroke: #000; stroke-width: 4; }
+.poster-wheel-hub { fill: #d2e7ff; stroke: #006eff; stroke-width: 2; }
+.poster-wheel-spokes { fill: none; stroke: #000; stroke-width: 4; stroke-linecap: round; }
+.poster-wheel-center { fill: #000; }
+.poster-car-footnote { margin-top: -7px; }
+.poster-car-footnote span { padding: 0 7px; color: #006eff; }
+.poster-bottom-rule { margin-top: auto; opacity: .35; }
+.poster-bottom-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 11px;
+  color: rgba(0,110,255,.74);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: .12em;
+  line-height: 1.4;
+}
+.poster-bottom-meta i { padding: 0 5px; font-style: normal; }
+
+@keyframes poster-title-rise {
+  from { opacity: 0; transform: translateY(35px) scaleX(.97); }
+  to { opacity: 1; transform: translateY(0) scaleX(.97); }
+}
+@keyframes poster-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes poster-car-cruise {
+  0%, 100% { transform: translate3d(-7px, 2px, 0) rotate(-.3deg); }
+  50% { transform: translate3d(8px, -5px, 0) rotate(.35deg); }
+}
+@keyframes poster-road-move {
+  to { stroke-dashoffset: -80; }
+}
+
+@media (min-width: 1500px) {
+  .hero.vayo-poster-hero {
+    min-height: min(820px, calc(100svh - 76px));
+    padding-left: clamp(70px, 7vw, 144px);
+    padding-right: clamp(70px, 7vw, 144px);
+  }
+  .poster-title { font-size: clamp(150px, 10.2vw, 190px); }
+  .poster-main-row { margin-top: 34px; }
+  .poster-car-svg { width: min(100%, 650px); }
+}
+@media (max-width: 900px) {
+  .hero.vayo-poster-hero {
+    min-height: 0;
+    padding: 25px 24px 18px;
+  }
+  .poster-title { font-size: clamp(64px, 12vw, 112px); }
+  .poster-main-row {
+    grid-template-columns: minmax(125px, .7fr) minmax(260px, 1.6fr) minmax(125px, .7fr);
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .poster-cta-column strong { font-size: clamp(21px, 3vw, 30px); }
+  .poster-pill-button { padding: 9px 13px; font-size: 9px; }
+}
+@media (max-width: 680px) {
+  .hero.vayo-poster-hero {
+    margin: 7px;
+    padding: 20px 16px 14px;
+    border-radius: 14px;
+  }
+  .poster-topline {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .poster-edition { display: none; }
+  .poster-meta span { font-size: 8px; }
+  .poster-meta strong { font-size: 13px; }
+  .poster-meta-right strong { font-size: 10px; }
+  .poster-title-wrap { margin-top: 28px; }
+  .poster-title {
+    font-size: clamp(49px, 13.2vw, 82px);
+    line-height: .78;
+    letter-spacing: -.07em;
+  }
+  .poster-rule { margin-top: 19px; }
+  .poster-tagline { margin-top: 13px; font-size: 13px; }
+  .poster-subline { max-width: 290px; margin: 6px auto 0; font-size: 8px; line-height: 1.55; }
+  .poster-main-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 13px 12px;
+    margin: 20px auto 16px;
+  }
+  .poster-car-scene {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    padding: 4px 0 0;
+  }
+  .poster-car-svg { width: min(100%, 470px); }
+  .poster-car-caption { font-size: 7px; }
+  .poster-car-footnote { margin-top: -7px; font-size: 7px; }
+  .poster-cta-column { grid-row: 2; gap: 8px; padding: 0 2px; }
+  .poster-cta-column strong { font-size: clamp(21px, 6vw, 28px); }
+  .poster-cta-eyebrow { font-size: 8px; }
+  .poster-pill-button {
+    min-height: 38px;
+    padding: 8px 11px;
+    gap: 6px;
+    font-size: 8px;
+  }
+  .poster-cta-column small { font-size: 7px; }
+  .poster-bottom-meta {
+    flex-direction: column;
+    gap: 5px;
+    font-size: 7px;
+    letter-spacing: .08em;
+  }
+}
+@media (max-width: 380px) {
+  .poster-title { font-size: 12.8vw; }
+  .poster-car-svg { width: 108%; max-width: none; }
+  .poster-cta-column strong { font-size: 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .poster-title span,
+  .poster-tagline,
+  .poster-subline,
+  .poster-cta-column,
+  .poster-car-svg,
+  .poster-road-line {
+    animation: none !important;
+    transition: none !important;
+  }
+}
