@@ -799,58 +799,145 @@ export default function VayoApp() {
         </main>
       )}
 
-      <footer className="site-footer" id="site-footer">
-        <div className="footer-main">
-          <section className="footer-brand-block">
-            <button className="footer-logo" onClick={() => goToHomeSection("top")} aria-label="VAYO home">
-              <span className="brand-mark">V</span>
-              <span className="brand-name">VAYO</span>
-            </button>
-            <p className="footer-description">A local service for people who need someone else to drive the car they already own.</p>
-            <span className="footer-note">Starting in Mananthavady, Wayanad</span>
-          </section>
-
-          <nav className="footer-column" aria-label="Quick links">
-            <h3>QUICK LINKS</h3>
+      <footer className="site-footer footer-showcase" id="site-footer">
+        <div className="footer-showcase-links">
+          <nav className="footer-column" aria-label="VAYO services">
+            <h3>SERVICES</h3>
             <button onClick={() => goToHomeSection("book-driver")}>Book a driver</button>
-            <button onClick={() => goToHomeSection("services")}>Our services</button>
-            <button onClick={() => user ? go("bookings") : (setAuthMode("signin"), setAuthOpen(true))}>My bookings</button>
-            <button onClick={() => go("driver")}>Drive with VAYO</button>
+            <button onClick={() => goToHomeSection("services")}>One-way trips</button>
+            <button onClick={() => goToHomeSection("services")}>Hourly bookings</button>
+            <button onClick={() => goToHomeSection("services")}>Full-day bookings</button>
           </nav>
 
-          <section className="footer-column">
-            <h3>SERVICE &amp; SAFETY</h3>
-            <button onClick={() => goToHomeSection("services")}>One-way, hourly &amp; full-day</button>
-            <button onClick={() => goToHomeSection("book-driver")}>Fare shared before confirmation</button>
-            <button onClick={() => go("driver")}>Driver application &amp; verification</button>
-            <p className="footer-column-note">Every driver application is reviewed by the VAYO team.</p>
-            <div className="footer-legal-links">
-              <Link href="/privacy">Privacy policy</Link>
-              <Link href="/terms">Terms of service</Link>
-            </div>
+          <section className="footer-column footer-showcase-area">
+            <h3>SERVICE AREA</h3>
+            <p>MANANTHAVADY</p>
+            <p>WAYANAD</p>
+            <p>KERALA, INDIA</p>
+            <span className="footer-column-note">Starting locally, with more journeys ahead.</span>
           </section>
 
-          <section className="footer-contact">
-            <h3>CONTACT US</h3>
-            <div className="footer-contact-row"><MapPin size={17}/><span>Mananthavady, Wayanad,<br/>Kerala, India</span></div>
-            <div className="footer-contact-row"><ShieldCheck size={17}/><span>Need booking assistance?<br/>Sign in to manage your request.</span></div>
-            <div className="footer-portal-label">VAYO PORTALS</div>
-            <div className="footer-portal-actions">
-              <button onClick={() => go("home")}>Customer portal <ArrowUpRight size={13}/></button>
-              <button onClick={() => go("driver")}>Driver portal <ArrowUpRight size={13}/></button>
-            </div>
-          </section>
+          <nav className="footer-column" aria-label="About VAYO">
+            <h3>COMPANY</h3>
+            <button onClick={() => goToHomeSection("top")}>About VAYO</button>
+            <button onClick={() => go("driver")}>Drive with VAYO</button>
+            <button onClick={() => goToHomeSection("help")}>Help &amp; support</button>
+            <button onClick={() => goToHomeSection("charges")}>How fares work</button>
+          </nav>
+
+          <nav className="footer-column" aria-label="VAYO portals">
+            <h3>YOUR VAYO</h3>
+            <button onClick={() => user ? go("bookings") : openAuth("signin")}>My bookings</button>
+            <button onClick={() => go("home")}>Customer portal</button>
+            <button onClick={() => go("driver")}>Driver portal</button>
+            <span className="footer-column-note">Your car. Your journey. Our driver.</span>
+          </nav>
         </div>
 
-        <div className="footer-presence">
-          <h3>CURRENT SERVICE AREA</h3>
-          <div className="footer-cities"><span>Mananthavady</span><span>Wayanad</span><span>Kerala</span></div>
+        <div className="footer-bottom footer-showcase-meta">
+          <span>© {new Date().getFullYear()} VAYO. ALL RIGHTS RESERVED.</span>
+          <div className="footer-legal-links">
+            <Link href="/terms">TERMS &amp; CONDITIONS</Link>
+            <Link href="/privacy">PRIVACY POLICY</Link>
+          </div>
         </div>
 
-        <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} VAYO. All rights reserved.</span>
-          <span>Your car. Your journey. Our driver.</span>
-          <button className="footer-back-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} aria-label="Back to top"><ChevronUp size={20}/></button>
+        <div className="footer-showcase-stage" aria-label="VAYO — your car, your journey, our driver">
+          <span className="footer-stage-caption">MADE FOR THE WAY YOU MOVE</span>
+
+          <div className="footer-floating-car footer-car-sedan" aria-hidden="true">
+            <svg viewBox="0 0 440 220" role="presentation">
+              <defs>
+                <linearGradient id="vayo-sedan-body" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stopColor="#51434d"/><stop offset=".42" stopColor="#211b22"/><stop offset="1" stopColor="#08080b"/>
+                </linearGradient>
+                <linearGradient id="vayo-sedan-glass" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stopColor="#d8d1da"/><stop offset=".42" stopColor="#8e8a98"/><stop offset="1" stopColor="#343541"/>
+                </linearGradient>
+              </defs>
+              <ellipse cx="222" cy="188" rx="178" ry="15" fill="#24151f" opacity=".18"/>
+              <g fill="#101014" stroke="#756a73" strokeWidth="4">
+                <circle cx="112" cy="164" r="35"/><circle cx="328" cy="164" r="35"/>
+              </g>
+              <g fill="#a8a2ab" stroke="#29262d" strokeWidth="5">
+                <circle cx="112" cy="164" r="19"/><circle cx="328" cy="164" r="19"/>
+              </g>
+              <g stroke="#514b55" strokeWidth="3">
+                <path d="M112 148v32M96 164h32M328 148v32M312 164h32"/>
+              </g>
+              <path d="M34 145 49 123Q58 111 82 105l60-17 43-43q13-13 34-13h65q19 0 33 14l43 43 30 10q23 8 32 27l8 28-5 22H365q-4-37-37-37t-37 37H147q-4-37-35-37t-35 37H42Z" fill="url(#vayo-sedan-body)" stroke="#151117" strokeWidth="4" strokeLinejoin="round"/>
+              <path d="m153 87 42-41q9-9 25-9h61q13 0 23 11l39 39-92 5Z" fill="url(#vayo-sedan-glass)" stroke="#17141a" strokeWidth="5" strokeLinejoin="round"/>
+              <path d="m239 42 8 48M340 86l-102 4" stroke="#34303a" strokeWidth="4"/>
+              <path d="M59 125q28-20 61-22M360 111l28 10" fill="none" stroke="#9e929e" strokeWidth="3" opacity=".7"/>
+              <path d="M39 141q30-13 54-9l-6 13H41Z" fill="#f4e5cb"/>
+              <path d="M384 130q15 2 24 11l-2 8h-26Z" fill="#d1a6a8"/>
+              <path d="M174 151h116" stroke="#c4bbc4" strokeWidth="3" opacity=".28"/>
+              <path d="M57 160h22M379 160h20" stroke="#09090c" strokeWidth="6"/>
+            </svg>
+          </div>
+
+          <div className="footer-floating-car footer-car-suv" aria-hidden="true">
+            <svg viewBox="0 0 440 220" role="presentation">
+              <defs>
+                <linearGradient id="vayo-suv-body" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stopColor="#fffdfb"/><stop offset=".48" stopColor="#c7c2c8"/><stop offset="1" stopColor="#78747d"/>
+                </linearGradient>
+                <linearGradient id="vayo-suv-glass" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stopColor="#bac4ce"/><stop offset="1" stopColor="#454b58"/>
+                </linearGradient>
+              </defs>
+              <ellipse cx="220" cy="190" rx="178" ry="14" fill="#392537" opacity=".18"/>
+              <g fill="#141318" stroke="#8d8790" strokeWidth="4">
+                <circle cx="107" cy="166" r="34"/><circle cx="330" cy="166" r="34"/>
+              </g>
+              <g fill="#d4d0d3" stroke="#55515a" strokeWidth="5">
+                <circle cx="107" cy="166" r="18"/><circle cx="330" cy="166" r="18"/>
+              </g>
+              <g stroke="#716b74" strokeWidth="3">
+                <path d="M107 151v30M92 166h30M330 151v30M315 166h30"/>
+              </g>
+              <path d="M26 145 39 117q8-16 30-22l54-13 36-38q12-13 35-13h93q23 0 38 16l39 40 34 9q23 7 31 26l10 30-7 24h-43q-3-36-35-36t-35 36H144q-3-36-37-36t-37 36H33Z" fill="url(#vayo-suv-body)" stroke="#77717b" strokeWidth="4" strokeLinejoin="round"/>
+              <path d="m132 81 36-37q9-9 27-9h90q14 0 25 12l32 35-103 7Z" fill="url(#vayo-suv-glass)" stroke="#57515b" strokeWidth="5" strokeLinejoin="round"/>
+              <path d="M228 39v51M320 82l-92 8" stroke="#5f5964" strokeWidth="4"/>
+              <path d="M80 99h245" stroke="#fff" strokeWidth="3" opacity=".8"/>
+              <path d="M37 130q33-17 57-12l-6 15-52 4Z" fill="#fff5dc"/>
+              <path d="M380 124q18 3 29 14l-3 11h-34Z" fill="#a95f65"/>
+              <path d="M54 154h290" stroke="#55515a" strokeWidth="3" opacity=".65"/>
+              <path d="M60 112l-12-16M357 105l11-15" stroke="#48434b" strokeWidth="6" strokeLinecap="round"/>
+            </svg>
+          </div>
+
+          <div className="footer-floating-car footer-car-hatch" aria-hidden="true">
+            <svg viewBox="0 0 440 220" role="presentation">
+              <defs>
+                <linearGradient id="vayo-hatch-body" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stopColor="#f3e4c9"/><stop offset=".5" stopColor="#aa9588"/><stop offset="1" stopColor="#66554f"/>
+                </linearGradient>
+                <linearGradient id="vayo-hatch-glass" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stopColor="#c8c3cb"/><stop offset="1" stopColor="#41404a"/>
+                </linearGradient>
+              </defs>
+              <ellipse cx="218" cy="188" rx="172" ry="14" fill="#2e1a23" opacity=".18"/>
+              <g fill="#141318" stroke="#817680" strokeWidth="4">
+                <circle cx="112" cy="164" r="34"/><circle cx="322" cy="164" r="34"/>
+              </g>
+              <g fill="#c9c1c1" stroke="#49434a" strokeWidth="5">
+                <circle cx="112" cy="164" r="18"/><circle cx="322" cy="164" r="18"/>
+              </g>
+              <g stroke="#736b71" strokeWidth="3">
+                <path d="M112 149v30M97 164h30M322 149v30M307 164h30"/>
+              </g>
+              <path d="M30 144 43 120q9-15 29-19l54-13 48-48q12-12 34-12h75q19 0 35 13l47 44 28 8q24 7 34 28l9 30-7 24h-40q-3-35-36-35t-36 35H148q-3-35-36-35t-36 35H37Z" fill="url(#vayo-hatch-body)" stroke="#63545a" strokeWidth="4" strokeLinejoin="round"/>
+              <path d="m143 84 43-44q8-8 23-8h72q15 0 26 11l39 38-102 10Z" fill="url(#vayo-hatch-glass)" stroke="#594d53" strokeWidth="5" strokeLinejoin="round"/>
+              <path d="M243 35v54M346 81l-103 8" stroke="#62565e" strokeWidth="4"/>
+              <path d="M55 123q23-15 58-14l-7 18H51Z" fill="#f7e9d4"/>
+              <path d="M369 115q22 3 35 17l-3 12h-36Z" fill="#a9585d"/>
+              <path d="M58 151h291" stroke="#4d4147" strokeWidth="3" opacity=".5"/>
+              <path d="M168 111h100" stroke="#f7eee4" strokeWidth="3" opacity=".25"/>
+            </svg>
+          </div>
+
+          <div className="footer-showcase-wordmark" aria-hidden="true">VAYO</div>
         </div>
       </footer>
 
