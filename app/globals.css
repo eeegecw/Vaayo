@@ -3161,3 +3161,176 @@ td { color: #38303d; }
   .app-shell,
   .legal-shell { scroll-behavior: auto !important; }
 }
+
+/* Card layout correction: consistent padding, text alignment and equal heights */
+.pricing-cards,
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(14px, 1.55vw, 24px);
+}
+
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  min-height: 220px;
+  height: 100%;
+  padding: 28px 28px 26px;
+  box-sizing: border-box;
+  border: 1px solid rgba(42, 29, 47, .18);
+  border-top: 1px solid rgba(42, 29, 47, .28);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, .68);
+  box-shadow: 0 12px 30px rgba(55, 33, 64, .055);
+  text-align: left;
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.pricing-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(59, 39, 67, .32);
+  background: rgba(255, 255, 255, .84);
+  box-shadow: 0 16px 34px rgba(55, 33, 64, .08);
+}
+.pricing-step {
+  display: block;
+  margin: 0;
+  min-height: 12px;
+  line-height: 1.35;
+  text-align: left;
+}
+.pricing-card h3 {
+  width: 100%;
+  min-height: 1.2em;
+  margin: 22px 0 10px;
+  color: #151018;
+  font: 500 clamp(21px, 1.65vw, 25px)/1.14 'Newsreader', Georgia, serif;
+  letter-spacing: -.02em;
+  text-align: left;
+}
+.pricing-card p {
+  width: 100%;
+  max-width: none;
+  min-height: 3.45em;
+  margin: 0;
+  color: #706876;
+  font-size: 12px;
+  line-height: 1.75;
+  text-align: left;
+}
+.pricing-cta {
+  margin-top: 28px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  min-width: 0;
+  min-height: 245px;
+  height: 100%;
+  padding: 28px 28px 25px;
+  box-sizing: border-box;
+  border: 1px solid rgba(42, 29, 47, .18);
+  border-top: 1px solid rgba(42, 29, 47, .28);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, .62);
+  box-shadow: 0 12px 30px rgba(55, 33, 64, .045);
+  color: #151018;
+  font: inherit;
+  text-align: left;
+  transition: border-color .2s ease, background .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.service-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(59, 39, 67, .34);
+  background: rgba(255, 255, 255, .86);
+  box-shadow: 0 16px 34px rgba(55, 33, 64, .075);
+}
+.service-number {
+  display: block;
+  margin: 0;
+  min-height: 12px;
+  line-height: 1.35;
+  text-align: left;
+}
+.service-card h3 {
+  width: 100%;
+  min-height: 1.2em;
+  margin: 22px 0 10px;
+  color: #151018;
+  font: 500 clamp(23px, 1.9vw, 28px)/1.12 'Newsreader', Georgia, serif;
+  letter-spacing: -.02em;
+  text-align: left;
+}
+.service-card p {
+  width: 100%;
+  max-width: none;
+  min-height: 3.4em;
+  margin: 0;
+  color: #706876;
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: left;
+}
+.service-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 22px;
+  color: #33283a;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+/* Tablet and mobile card rhythm */
+@media (max-width: 900px) and (min-width: 701px) {
+  .pricing-cards,
+  .service-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .pricing-card,
+  .service-card {
+    min-height: 225px;
+    padding: 24px;
+  }
+  .pricing-card:last-child,
+  .service-card:last-child {
+    grid-column: 1 / -1;
+  }
+  .pricing-card h3,
+  .service-card h3 { margin-top: 18px; }
+}
+
+@media (max-width: 700px) {
+  .pricing-cards,
+  .service-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+  }
+  .pricing-card,
+  .service-card {
+    min-height: 0;
+    height: auto;
+    padding: 22px 20px 23px;
+  }
+  .pricing-card h3,
+  .service-card h3 {
+    min-height: 0;
+    margin: 16px 0 9px;
+    font-size: 24px;
+  }
+  .pricing-card p,
+  .service-card p { min-height: 0; }
+  .service-card-link { margin-top: 18px; padding-top: 0; }
+  .pricing-cta { margin-top: 20px; }
+}
