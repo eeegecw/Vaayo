@@ -3,10 +3,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { FormEvent, PointerEvent as ReactPointerEvent } from "react";
 import type { User } from "@supabase/supabase-js";
+import type { Tables } from "@/types/database";
 import Link from "next/link";
 import {
-  ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront, ChevronDown, ChevronUp,
-  CheckCircle2, Clock3, KeyRound, Loader2, LogOut, MapPin, Menu,
+  ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront, ChevronDown,
+  CheckCircle2, Clock3, KeyRound, Loader2, Menu,
   Navigation, ShieldCheck, Users, Wallet, X,
   ClipboardList, AlertCircle, Phone, Mail
 } from "lucide-react";
@@ -15,17 +16,10 @@ import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 type Role = "customer" | "driver" | "admin";
 type View = "home" | "bookings" | "driver" | "admin";
 type ServiceType = "one_way" | "hourly" | "full_day";
-type Profile = { id: string; full_name: string | null; phone: string | null; role: Role };
-type Booking = {
-  id: string; customer_id: string; driver_id: string | null; service_type: ServiceType;
-  pickup: string; destination: string | null; scheduled_at: string | null;
-  duration_hours: number | null; status: string; quoted_fare: number | null; created_at: string;
-};
-type DriverApplication = {
-  id: string; user_id: string; full_name: string; license_number: string;
-  status: string; created_at: string;
-};
-type DriverProfile = { id: string; full_name: string | null; phone: string | null };
+type Profile = Pick<Tables<"profiles">, "id" | "full_name" | "phone"> & { role: Role };
+type Booking = Omit<Tables<"bookings">, "service_type"> & { service_type: ServiceType };
+type DriverApplication = Tables<"driver_applications">;
+type DriverProfile = Pick<Tables<"profiles">, "id" | "full_name" | "phone">;
 
 const services: { id: ServiceType; title: string; description: string }[] = [
   { id: "one_way", title: "One-way", description: "A professional driver for a single journey." },
