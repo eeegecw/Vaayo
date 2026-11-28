@@ -1373,3 +1373,446 @@ html { scroll-behavior: smooth; }
 
 /* Keep fixed navigation overlays attached to the viewport */
 .topbar { backdrop-filter: none; -webkit-backdrop-filter: none; }
+
+/* VAYO monochrome theme — black, white and restrained grayscale */
+:root {
+  color-scheme: dark;
+  --ink: #f5f5f5;
+  --ink-soft: #dedede;
+  --paper: #050505;
+  --white: #101010;
+  --muted: #a1a1a1;
+  --line: #303030;
+  --gold: #bdbdbd;
+  --gold-light: #e8e8e8;
+  --green: #bcbcbc;
+  --danger: #d7a0a0;
+  --shadow: 0 18px 48px rgba(0, 0, 0, .42);
+}
+
+html, body {
+  background: #050505;
+  color: #f5f5f5;
+  color-scheme: dark;
+}
+body { font-family: 'DM Sans', Arial, sans-serif; }
+.app-shell {
+  min-height: 100vh;
+  background: #050505;
+  color: #f5f5f5;
+}
+
+/* Header and navigation */
+.topbar {
+  background: rgba(5, 5, 5, .97);
+  border-bottom: 1px solid #292929;
+  box-shadow: none;
+}
+.topbar .brand-mark,
+.footer-logo .brand-mark,
+.legal-brand .brand-mark {
+  display: grid;
+  place-items: center;
+  border-radius: 2px;
+  background: #f4f4f4;
+  color: #050505;
+}
+.topbar .brand-name,
+.footer-logo .brand-name,
+.legal-brand { color: #f5f5f5; }
+.topbar .brand-tag { color: #929292; }
+.location-pill {
+  color: #bdbdbd;
+  border-color: #393939;
+}
+.nav-link,
+.nav-link.nav-trigger,
+.nav-link.nav-direct { color: #d0d0d0; }
+.nav-link:hover,
+.nav-link.active,
+.nav-link.nav-trigger:hover,
+.nav-link.nav-direct:hover,
+.nav-link.nav-trigger.active { color: #fff; }
+.nav-trigger svg { color: #929292; }
+.nav-mega-backdrop { background: rgba(0,0,0,.66); }
+.nav-mega-panel {
+  background: rgba(10,10,10,.98);
+  border-color: #303030;
+  box-shadow: 0 24px 60px rgba(0,0,0,.55);
+}
+.nav-mega-kicker,
+.nav-mega-label,
+.nav-mega-index { color: #bdbdbd; }
+.nav-mega-intro h2,
+.nav-mega-item-copy strong,
+.nav-mega-resource strong { color: #f4f4f4; }
+.nav-mega-intro p,
+.nav-mega-item-copy small,
+.nav-mega-resource small { color: #a6a6a6; }
+.nav-mega-item,
+.nav-mega-resource {
+  background: #111;
+  border-color: #303030;
+  color: #f4f4f4;
+}
+.nav-mega-item:hover,
+.nav-mega-resource:hover {
+  background: #1b1b1b;
+  border-color: #5a5a5a;
+}
+.nav-mega-item > svg,
+.nav-mega-resource > svg { color: #d5d5d5; }
+.nav-mega-cta {
+  color: #eee;
+  border-color: #858585;
+}
+.nav-account .nav-login { color: #e0e0e0; }
+.nav-signup {
+  background: #f4f4f4;
+  border-color: #f4f4f4;
+  color: #050505;
+}
+.nav-signup:hover {
+  background: #d8d8d8;
+  border-color: #d8d8d8;
+}
+
+/* Hero */
+.hero h1,
+.section-head h2,
+.pricing-heading h2,
+.help-heading h2,
+.page-heading h1,
+.form-title,
+.application-card h2,
+.data-panel-head h3 { color: #f5f5f5; }
+.hero h1 {
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: -.055em;
+}
+.hero h1 em {
+  color: #d8d8d8;
+  font-style: normal;
+}
+.hero-copy,
+.section-sub,
+.pricing-heading p,
+.help-heading p,
+.page-heading .section-sub { color: #aaa; }
+.eyebrow { color: #bdbdbd; }
+.eyebrow:before { background: #bdbdbd; }
+.trust-row,
+.trust-item { color: #aaa; }
+.trust-row { border-top-color: #303030; }
+.trust-item svg { color: #dedede; }
+.hero-visual {
+  background: #0c0c0c;
+  border: 1px solid #303030;
+  border-radius: 2px;
+  color: #eee;
+}
+.hero-visual:before {
+  border-color: rgba(255,255,255,.12);
+  box-shadow: 0 0 0 32px rgba(255,255,255,.018), 0 0 0 68px rgba(255,255,255,.012);
+}
+.hero-visual-top,
+.hero-visual-bottom { color: #aaa; }
+.hero-step { border-color: rgba(255,255,255,.14); }
+.hero-step:first-child { border-top-color: rgba(255,255,255,.14); }
+.hero-step-number { color: #d0d0d0; }
+.hero-step small { color: #a5a5a5; }
+.hero-step strong { color: #f5f5f5; }
+
+/* Services and pricing */
+.section { background: transparent; }
+.service-card {
+  border-top-color: #444;
+  color: #f4f4f4;
+}
+.service-card:hover {
+  border-color: #888;
+  background: rgba(255,255,255,.025);
+}
+.service-number,
+.pricing-step { color: #c4c4c4; }
+.service-card h3,
+.pricing-card h3 { color: #f1f1f1; }
+.service-card p,
+.pricing-card p { color: #a4a4a4; }
+.service-card-link { color: #e0e0e0; }
+.pricing-section {
+  background: #0b0b0b;
+  border-top-color: #303030;
+  border-bottom-color: #303030;
+}
+.pricing-card { border-top-color: #444; }
+.pricing-cta {
+  background: #f3f3f3;
+  color: #080808;
+}
+.pricing-cta:hover { background: #d9d9d9; }
+
+/* Booking panel and fields */
+.booking-panel {
+  background: #101010;
+  border-color: #373737;
+  box-shadow: none;
+}
+.booking-aside {
+  background: #0a0a0a;
+  border-right: 1px solid #303030;
+}
+.booking-aside h2 { color: #f4f4f4; }
+.booking-aside p { color: #b0b0b0; }
+.aside-note {
+  color: #d0d0d0;
+  border-top-color: #414141;
+}
+.form-title { color: #f4f4f4; }
+.form-sub,
+.form-hint { color: #a9a9a9; }
+.service-option {
+  background: #171717;
+  border-color: #3a3a3a;
+  color: #bfbfbf;
+}
+.service-option svg { color: #dedede; }
+.service-option strong { color: #ededed; }
+.service-option.selected {
+  background: #282828;
+  border-color: #bdbdbd;
+  box-shadow: inset 0 0 0 1px #bdbdbd;
+}
+.field label { color: #c2c2c2; }
+.field input,
+.field select,
+.field textarea,
+.input {
+  background: #080808;
+  border-color: #444;
+  color: #f2f2f2;
+}
+.field input::placeholder,
+.field textarea::placeholder,
+.input::placeholder { color: #858585; }
+.field input:focus,
+.field select:focus,
+.input:focus {
+  border-color: #bfbfbf;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.10);
+}
+.field select option { background: #101010; color: #f2f2f2; }
+.form-foot .button-dark,
+.application-card .button-dark,
+.modal .button-dark {
+  background: #f4f4f4;
+  color: #070707;
+  box-shadow: none;
+}
+.form-foot .button-dark:hover,
+.application-card .button-dark:hover,
+.modal .button-dark:hover { background: #d8d8d8; }
+
+/* Help and footer */
+.help-section {
+  background: #090909;
+  color: #f5f5f5;
+  border-top-color: #303030;
+}
+.help-heading .eyebrow { color: #c8c8c8; }
+.help-heading .eyebrow:before { background: #c8c8c8; }
+.help-card {
+  background: #111;
+  color: #f2f2f2;
+  border-color: #373737;
+}
+.help-icon-dark,
+.help-icon-accent { background: #242424; color: #f3f3f3; }
+.help-card-label { color: #bdbdbd; }
+.help-card h3 { color: #f2f2f2; }
+.help-card p { color: #aaa; }
+.help-card button { color: #e4e4e4; }
+.site-footer {
+  background: #050505;
+  color: #aaa;
+  border-top-color: #303030;
+}
+.footer-description,
+.footer-column button,
+.footer-contact-row { color: #a8a8a8; }
+.footer-note,
+.footer-column-note { color: #a0a0a0; }
+.footer-column h3,
+.footer-contact h3,
+.footer-presence h3,
+.footer-portal-label { color: #f0f0f0; }
+.footer-column button:hover { color: #fff; }
+.footer-contact-row svg { color: #d0d0d0; }
+.footer-portal-actions button {
+  background: #f2f2f2;
+  color: #080808;
+}
+.footer-portal-actions button:hover { background: #d7d7d7; }
+.footer-presence { border-color: #303030; }
+.footer-cities,
+.footer-bottom { color: #999; }
+.footer-legal-links a { color: #bdbdbd; }
+.footer-legal-links a:hover { color: #fff; }
+.footer-back-top {
+  background: #ededed;
+  color: #050505;
+  box-shadow: none;
+}
+.footer-back-top:hover { background: #cecece; }
+
+/* Dashboards, tables and account screens */
+.page-content { background: #050505; }
+.stat-card {
+  background: #101010;
+  border-top-color: #d8d8d8;
+}
+.stat-label { color: #aaa; }
+.stat-value { color: #f1f1f1; }
+.stat-icon { color: #d0d0d0; }
+.data-panel,
+.application-card {
+  background: #101010;
+  border-color: #353535;
+}
+.data-panel-head { border-bottom-color: #353535; }
+th { color: #aaa; }
+td { color: #e0e0e0; }
+th, td { border-bottom-color: #303030; }
+.status {
+  color: #e5e5e5;
+  background: #242424;
+  border-color: #414141;
+}
+.status.approved,
+.status.completed {
+  color: #e4e4e4;
+  background: #1a1a1a;
+  border-color: #555;
+}
+.status.pending,
+.status.requested,
+.status.quoted {
+  color: #ededed;
+  background: #292929;
+  border-color: #626262;
+}
+.status.rejected,
+.status.cancelled,
+.status.declined {
+  color: #ddd;
+  background: #242424;
+  border-color: #555;
+}
+.small-button {
+  background: #efefef;
+  color: #080808;
+}
+.empty-state,
+.empty-state p { color: #aaa; }
+.empty-icon { background: #242424; color: #ededed; }
+.application-card h2 { color: #f3f3f3; }
+.application-card p { color: #aaa; }
+.notice {
+  background: #191919;
+  border-color: #444;
+  color: #d0d0d0;
+}
+.alert.success {
+  background: #171717;
+  border-color: #555;
+  color: #eee;
+}
+.alert.error {
+  background: #242424;
+  border-color: #777;
+  color: #f0f0f0;
+}
+.modal-backdrop { background: rgba(0,0,0,.78); }
+.modal {
+  background: #111;
+  border-color: #444;
+  box-shadow: 0 24px 70px rgba(0,0,0,.6);
+}
+.modal h2 { color: #f2f2f2; }
+.modal p { color: #aaa; }
+.modal-close { background: #252525; color: #f2f2f2; }
+.modal .nav-link { color: #e1e1e1; }
+.mobile-dropdown {
+  background: #111;
+  border-color: #3b3b3b;
+  box-shadow: 0 16px 40px rgba(0,0,0,.55);
+}
+.mobile-dropdown button { color: #ededed; }
+.mobile-dropdown button:hover { background: #242424; }
+::selection { background: #bdbdbd; color: #050505; }
+
+/* Legal pages also use the monochrome palette */
+.legal-shell { background: #050505; color: #f1f1f1; }
+.legal-topbar {
+  background: #050505;
+  border-bottom-color: #303030;
+}
+.legal-brand { color: #f1f1f1; }
+.legal-topbar nav a,
+.legal-footer a { color: #b4b4b4; }
+.legal-topbar nav a:hover,
+.legal-topbar nav a[aria-current="page"],
+.legal-footer a:hover { color: #fff; }
+.legal-heading { border-bottom-color: #353535; }
+.legal-heading h1 { color: #f3f3f3; }
+.legal-intro,
+.legal-document p,
+.legal-document li { color: #b4b4b4; }
+.legal-updated { color: #d0d0d0; }
+.legal-document section { border-bottom-color: #303030; }
+.legal-document h2 { color: #f0f0f0; }
+.legal-document strong { color: #f1f1f1; }
+.legal-document a { color: #e5e5e5; }
+.legal-document a:hover { color: #fff; }
+.legal-launch-note {
+  background: #171717;
+  border-left-color: #bdbdbd;
+}
+.legal-launch-note strong { color: #f1f1f1; }
+.legal-launch-note p { color: #bcbcbc; }
+.legal-footer { border-top-color: #303030; color: #999; }
+
+/* Mobile menu */
+@media (max-width: 700px) {
+  .mobile-menu { color: #f1f1f1; }
+  .mobile-menu:hover { background: #242424; }
+  .mobile-nav-overlay {
+    background: #050505;
+    color: #f3f3f3;
+  }
+  .mobile-close { color: #f3f3f3; }
+  .mobile-close:hover { background: #242424; }
+  .mobile-signup {
+    background: #f2f2f2;
+    color: #050505;
+  }
+  .mobile-nav-list,
+  .mobile-nav-group,
+  .mobile-nav-toggle,
+  .mobile-nav-direct { border-color: #333; }
+  .mobile-nav-toggle,
+  .mobile-nav-direct { color: #f1f1f1; }
+  .mobile-nav-toggle svg,
+  .mobile-nav-direct svg { color: #d2d2d2; }
+  .mobile-nav-submenu button { color: #f1f1f1; }
+  .mobile-nav-submenu button:hover { background: #202020; }
+  .mobile-nav-submenu small,
+  .mobile-login { color: #aaa; }
+  .mobile-login strong { color: #f4f4f4; }
+  .mobile-nav-bottom > span { color: #a5a5a5; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
