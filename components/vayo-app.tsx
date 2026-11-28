@@ -5,7 +5,7 @@ import type { FormEvent } from "react";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import {
-  ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront, ChevronUp,
+  ArrowRight, ArrowUpRight, Bell, CalendarClock, CarFront, ChevronDown, ChevronUp,
   CheckCircle2, Clock3, KeyRound, Loader2, LogOut, MapPin, Menu,
   Navigation, ShieldCheck, Users, Wallet, X,
   ClipboardList, AlertCircle, Phone, Mail
@@ -43,6 +43,8 @@ export default function VayoApp() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [view, setView] = useState<View>("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [desktopMenuOpen, setDesktopMenuOpen] = useState<"services" | "resources" | "pricing" | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<"services" | "resources" | "pricing" | null>(null);
   const [authOpen, setAuthOpen] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -69,6 +71,23 @@ export default function VayoApp() {
   const [quoteDrafts, setQuoteDrafts] = useState<Record<string, string>>({});
   const [assignDrafts, setAssignDrafts] = useState<Record<string, string>>({});
   const [adminBusyId, setAdminBusyId] = useState("");
+
+  useEffect(() => {
+    if (!menuOpen && !desktopMenuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    if (menuOpen) document.body.style.overflow = "hidden";
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        setDesktopMenuOpen(null);
+      }
+    };
+    window.addEventListener("keydown", handleEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [menuOpen, desktopMenuOpen]);
 
   useEffect(() => {
     const appRoot = document.querySelector(".app-shell");
@@ -366,8 +385,22 @@ export default function VayoApp() {
   const pendingCount = bookings.filter((b) => b.status === "requested").length;
   const revenueQuotes = bookings.filter((b) => b.quoted_fare !== null).length;
 
+  function openAuth(mode: "signin" | "signup") {
+    setDesktopMenuOpen(null);
+    setMenuOpen(false);
+    setMobileExpanded(null);
+    setAuthMode(mode);
+    setAuthError("");
+    setAuthMessage("");
+    setAuthOpen(true);
+  }
+
   function go(next: View) {
-    setView(next); setMenuOpen(false); setNotice("");
+    setView(next);
+    setMenuOpen(false);
+    setDesktopMenuOpen(null);
+    setMobileExpanded(null);
+    setNotice("");
     if (next === "bookings") void refreshBookings();
     if (next === "admin") void refreshAdminData();
     if (next === "driver") void refreshBookings();
@@ -376,6 +409,8 @@ export default function VayoApp() {
   function goToHomeSection(sectionId: string) {
     setView("home");
     setMenuOpen(false);
+    setDesktopMenuOpen(null);
+    setMobileExpanded(null);
     setNotice("");
     window.setTimeout(() => {
       document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -386,30 +421,189 @@ export default function VayoApp() {
     <div className="app-shell" id="top">
       <header className="topbar">
         <a href="#" className="brand" onClick={(e) => { e.preventDefault(); go("home"); }}>
-          <span className="brand-mark">V</span><span><span className="brand-name">VAYO</span><span className="brand-tag">PERSONAL DRIVER SERVICE</span></span>
+          <span className="brand-mark">V</span>
+          <span><span className="brand-name">VAYO</span><span className="brand-tag">PERSONAL DRIVER SERVICE</span></span>
         </a>
+
         <div className="top-actions">
-          <span className="location-pill"><MapPin size={13}/> Mananthavady, Wayanad</span>
-          <div className="desktop-links">
-            <button className="nav-link" onClick={() => goToHomeSection("services")}>Services</button>
-            <button className="nav-link" onClick={() => goToHomeSection("charges")}>Charges</button>
-            <button className="nav-link" onClick={() => goToHomeSection("help")}>Help</button>
-            {user && <button className={`nav-link ${view === "bookings" ? "active" : ""}`} onClick={() => go("bookings")}>My bookings</button>}
-            {user && profile?.role === "driver" && <button className={`nav-link ${view === "driver" ? "active" : ""}`} onClick={() => go("driver")}>Driver desk</button>}
-            {user && profile?.role === "admin" && <button className={`nav-link ${view === "admin" ? "active" : ""}`} onClick={() => go("admin")}>Admin</button>}
+          <nav className="desktop-links" aria-label="Main navigation">
+            <button className={`nav-link nav-trigger ${desktopMenuOpen === "services" ? "active" : ""}`} aria-expanded={desktopMenuOpen === "services"} aria-controls="vayo-services-menu" onClick={() => setDesktopMenuOpen(desktopMenuOpen === "services" ? null : "services")}>
+              Services <ChevronDown size={13}/>
+            </button>
+            <button className={`nav-link nav-trigger ${desktopMenuOpen === "resources" ? "active" : ""}`} aria-expanded={desktopMenuOpen === "resources"} aria-controls="vayo-resources-menu" onClick={() => setDesktopMenuOpen(desktopMenuOpen === "resources" ? null : "resources")}>
+              Resources <ChevronDown size={13}/>
+            </button>
+            <button className={`nav-link nav-trigger ${desktopMenuOpen === "pricing" ? "active" : ""}`} aria-expanded={desktopMenuOpen === "pricing"} aria-controls="vayo-pricing-menu" onClick={() => setDesktopMenuOpen(desktopMenuOpen === "pricing" ? null : "pricing")}>
+              Pricing <ChevronDown size={13}/>
+            </button>
+            <button className="nav-link nav-direct" onClick={() => go("driver")}>For drivers</button>
+            {user && profile?.role === "driver" && <button className={`nav-link nav-direct ${view === "driver" ? "active" : ""}`} onClick={() => go("driver")}>Driver desk</button>}
+            {user && profile?.role === "admin" && <button className={`nav-link nav-direct ${view === "admin" ? "active" : ""}`} onClick={() => go("admin")}>Admin</button>}
+          </nav>
+
+          <div className="nav-account">
+            {user ? (
+              <>
+                <button className="nav-login" onClick={() => go("bookings")}>My bookings</button>
+                <button className="nav-signup" onClick={signOut}>Sign out</button>
+              </>
+            ) : (
+              <>
+                <button className="nav-login" onClick={() => openAuth("signin")}>Log in</button>
+                <button className="nav-signup" onClick={() => openAuth("signup")}>Sign up</button>
+              </>
+            )}
           </div>
-          {user ? <button className="button button-outline" onClick={signOut}><LogOut size={14}/> Sign out</button> : <button className="button button-dark" onClick={() => { setAuthMode("signin"); setAuthError(""); setAuthMessage(""); setAuthOpen(true); }}><KeyRound size={14}/> Sign in</button>}
-          <button className="mobile-menu" aria-label="Open menu" onClick={() => setMenuOpen(!menuOpen)}><Menu size={18}/></button>
+
+          <button className="mobile-menu" aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={menuOpen} onClick={() => { setMenuOpen(!menuOpen); setMobileExpanded(null); }}>
+            {menuOpen ? <X size={22}/> : <Menu size={20}/>}
+          </button>
         </div>
-        {menuOpen && <div className="mobile-dropdown">
-          <button onClick={() => goToHomeSection("services")}>Services</button>
-          <button onClick={() => goToHomeSection("charges")}>Charges</button>
-          <button onClick={() => goToHomeSection("help")}>Help</button>
-          {user && <button onClick={() => go("bookings")}>My bookings</button>}
-          {user && profile?.role === "driver" && <button onClick={() => go("driver")}>Driver desk</button>}
-          {user && profile?.role === "admin" && <button onClick={() => go("admin")}>Admin dashboard</button>}
-          {user ? <button onClick={signOut}>Sign out</button> : <button onClick={() => { setAuthOpen(true); setMenuOpen(false); }}>Sign in</button>}
-        </div>}
+
+        {desktopMenuOpen && (
+          <>
+            <button className="nav-mega-backdrop" aria-label="Close navigation menu" onClick={() => setDesktopMenuOpen(null)}/>
+            <div className={`nav-mega-panel nav-mega-${desktopMenuOpen}`} role="region" aria-label={`${desktopMenuOpen} menu`}>
+              {desktopMenuOpen === "services" && (
+                <>
+                  <div className="nav-mega-intro">
+                    <span className="nav-mega-kicker">VAYO SERVICES</span>
+                    <h2>One driver. Three ways to travel.</h2>
+                    <p>Choose the kind of help you need. A VAYO driver comes to you and drives your own car.</p>
+                    <button className="nav-mega-cta" onClick={() => goToHomeSection("book-driver")}>Book a driver <ArrowRight size={15}/></button>
+                  </div>
+                  <div className="nav-mega-content">
+                    <span className="nav-mega-label">CHOOSE A SERVICE</span>
+                    <div className="nav-mega-service-list">
+                      {services.map((item, index) => (
+                        <button className="nav-mega-item" key={item.id} onClick={() => goToHomeSection("services")}>
+                          <span className="nav-mega-index">0{index + 1}</span>
+                          <span className="nav-mega-item-copy"><strong>{item.title}</strong><small>{item.description}</small></span>
+                          <ArrowUpRight size={16}/>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {desktopMenuOpen === "resources" && (
+                <>
+                  <div className="nav-mega-intro">
+                    <span className="nav-mega-kicker">HERE TO HELP</span>
+                    <h2>Everything you need to get moving.</h2>
+                    <p>Find out how the service works, get help with a booking, or learn how to join the VAYO driver network.</p>
+                  </div>
+                  <div className="nav-mega-content">
+                    <span className="nav-mega-label">EXPLORE VAYO</span>
+                    <div className="nav-mega-resource-grid">
+                      <button className="nav-mega-resource" onClick={() => goToHomeSection("top")}>
+                        <strong>How it works</strong><small>See how a driver request becomes a confirmed trip.</small><ArrowUpRight size={16}/>
+                      </button>
+                      <button className="nav-mega-resource" onClick={() => goToHomeSection("help")}>
+                        <strong>Customer help</strong><small>Find the right place to start with your booking.</small><ArrowUpRight size={16}/>
+                      </button>
+                      <button className="nav-mega-resource" onClick={() => go("driver")}>
+                        <strong>Driver opportunities</strong><small>Learn about applying to drive with VAYO.</small><ArrowUpRight size={16}/>
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {desktopMenuOpen === "pricing" && (
+                <>
+                  <div className="nav-mega-intro">
+                    <span className="nav-mega-kicker">CLEAR BEFORE YOU CONFIRM</span>
+                    <h2>Your fare, shared upfront.</h2>
+                    <p>VAYO reviews each request and shares the fare with you before the booking moves ahead.</p>
+                    <button className="nav-mega-cta" onClick={() => goToHomeSection("charges")}>Explore fare process <ArrowRight size={15}/></button>
+                  </div>
+                  <div className="nav-mega-content">
+                    <span className="nav-mega-label">NEXT STEPS</span>
+                    <div className="nav-mega-resource-grid nav-mega-pricing-grid">
+                      <button className="nav-mega-resource" onClick={() => goToHomeSection("charges")}>
+                        <strong>How fares work</strong><small>Understand when your price is shared and approved.</small><ArrowUpRight size={16}/>
+                      </button>
+                      <button className="nav-mega-resource" onClick={() => goToHomeSection("book-driver")}>
+                        <strong>Request a quote</strong><small>Send your trip details to the VAYO team.</small><ArrowUpRight size={16}/>
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </>
+        )}
+
+        {menuOpen && (
+          <div className="mobile-nav-overlay" role="dialog" aria-modal="true" aria-label="VAYO navigation">
+            <div className="mobile-nav-top">
+              <a href="#" className="brand" onClick={(e) => { e.preventDefault(); go("home"); }}>
+                <span className="brand-mark">V</span>
+                <span><span className="brand-name">VAYO</span><span className="brand-tag">PERSONAL DRIVER SERVICE</span></span>
+              </a>
+              <div className="mobile-nav-actions">
+                {!user ? (
+                  <button className="mobile-signup" onClick={() => openAuth("signup")}>Sign up</button>
+                ) : (
+                  <button className="mobile-signup" onClick={() => go("bookings")}>My bookings</button>
+                )}
+                <button className="mobile-close" aria-label="Close navigation menu" onClick={() => { setMenuOpen(false); setMobileExpanded(null); }}><X size={23}/></button>
+              </div>
+            </div>
+
+            <nav className="mobile-nav-list" aria-label="Mobile navigation">
+              <section className="mobile-nav-group">
+                <button className="mobile-nav-toggle" aria-expanded={mobileExpanded === "services"} onClick={() => setMobileExpanded(mobileExpanded === "services" ? null : "services")}>
+                  Services <ChevronDown size={18}/>
+                </button>
+                {mobileExpanded === "services" && (
+                  <div className="mobile-nav-submenu">
+                    {services.map((item) => (
+                      <button key={item.id} onClick={() => goToHomeSection("services")}><strong>{item.title}</strong><small>{item.description}</small></button>
+                    ))}
+                  </div>
+                )}
+              </section>
+
+              <section className="mobile-nav-group">
+                <button className="mobile-nav-toggle" aria-expanded={mobileExpanded === "resources"} onClick={() => setMobileExpanded(mobileExpanded === "resources" ? null : "resources")}>
+                  Resources <ChevronDown size={18}/>
+                </button>
+                {mobileExpanded === "resources" && (
+                  <div className="mobile-nav-submenu">
+                    <button onClick={() => goToHomeSection("top")}><strong>How it works</strong><small>See the steps from request to driver assignment.</small></button>
+                    <button onClick={() => goToHomeSection("help")}><strong>Customer help</strong><small>Get help with a booking.</small></button>
+                  </div>
+                )}
+              </section>
+
+              <section className="mobile-nav-group">
+                <button className="mobile-nav-toggle" aria-expanded={mobileExpanded === "pricing"} onClick={() => setMobileExpanded(mobileExpanded === "pricing" ? null : "pricing")}>
+                  Pricing <ChevronDown size={18}/>
+                </button>
+                {mobileExpanded === "pricing" && (
+                  <div className="mobile-nav-submenu">
+                    <button onClick={() => goToHomeSection("charges")}><strong>How fares work</strong><small>Your fare is shared before you confirm.</small></button>
+                    <button onClick={() => goToHomeSection("book-driver")}><strong>Request a quote</strong><small>Tell us about your journey.</small></button>
+                  </div>
+                )}
+              </section>
+
+              <button className="mobile-nav-direct" onClick={() => go("driver")}>For drivers <ArrowUpRight size={17}/></button>
+              {user && <button className="mobile-nav-direct" onClick={() => go("bookings")}>My bookings <ArrowUpRight size={17}/></button>}
+              {user && profile?.role === "driver" && <button className="mobile-nav-direct" onClick={() => go("driver")}>Driver desk <ArrowUpRight size={17}/></button>}
+              {user && profile?.role === "admin" && <button className="mobile-nav-direct" onClick={() => go("admin")}>Admin dashboard <ArrowUpRight size={17}/></button>}
+            </nav>
+
+            <div className="mobile-nav-bottom">
+              {!user && <button className="mobile-login" onClick={() => openAuth("signin")}>Already have an account? <strong>Log in</strong></button>}
+              {user && <button className="mobile-login" onClick={signOut}>Sign out</button>}
+              <span>Your car. Your journey. Our driver.</span>
+            </div>
+          </div>
+        )}
       </header>
 
       {!configured && <div className="notice" style={{ margin: "16px 5.5vw 0" }}><AlertCircle size={16}/> Preview mode: connect Supabase to activate email/password accounts, save bookings and use the driver/admin workflows. Add your project URL and publishable key to <strong>.env.local</strong>.</div>}
