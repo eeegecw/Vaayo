@@ -661,7 +661,6 @@ export default function VayoApp() {
                 <span>STARTING IN</span>
                 <strong>WAYANAD</strong>
               </div>
-              <h2 className="poster-drive-title">DRIVE</h2>
               <div className="poster-meta poster-meta-right poster-meta-large">
                 <span>YOUR TRIP, YOUR WAY</span>
                 <strong>ONE-WAY · HOURLY · FULL-DAY</strong>
