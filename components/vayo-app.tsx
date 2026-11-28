@@ -649,41 +649,100 @@ export default function VayoApp() {
 
       {view === "home" && (
         <>
-          <main className="hero">
-            <div className="hero-copy-column">
-              <div className="eyebrow">A personal driver service in Wayanad</div>
-              <h1>Someone to drive your car.<br/><em>That&apos;s VAYO.</em></h1>
-              <p className="hero-copy">Need a driver for your own car? Request one with VAYO. Choose a one-way trip, book by the hour, or keep a driver for the day. We&apos;re starting in Mananthavady.</p>
-              <div className="hero-cta">
-                <button className="button button-dark" onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth" })}>Book a driver <ArrowRight size={15}/></button>
-                <button className="button button-outline" onClick={() => user ? go("driver") : setAuthOpen(true)}>Become a driver <ArrowUpRight size={15}/></button>
+          <main className="hero vayo-poster-hero" id="home">
+            <div className="poster-topline">
+              <div className="poster-meta">
+                <span>SERVICE AREA</span>
+                <strong>MANANTHAVADY</strong>
               </div>
-              <div className="trust-row">
-                <span className="trust-item"><ShieldCheck size={14}/> Driver applications reviewed</span>
-                <span className="trust-item"><MapPin size={14}/> Starting in Mananthavady</span>
+              <div className="poster-edition">VAYO <span>·</span> YOUR PERSONAL DRIVER</div>
+              <div className="poster-meta poster-meta-right">
+                <span>BOOKING OPTIONS</span>
+                <strong>ONE-WAY · HOURLY · FULL-DAY</strong>
               </div>
             </div>
-            <aside className="hero-visual" aria-label="How VAYO works">
-              <div className="hero-visual-top">
-                <span>HOW IT WORKS</span>
-                <span>MANANTHAVADY · WAYANAD</span>
+
+            <div className="poster-title-wrap">
+              <h1 className="poster-title">
+                <span>THE VAYO</span>
+                <span>DRIVE</span>
+              </h1>
+            </div>
+
+            <div className="poster-rule" />
+            <p className="poster-tagline">YOUR CAR. YOUR JOURNEY. OUR DRIVER.</p>
+            <p className="poster-subline">A PERSONAL DRIVER FOR THE CAR YOU ALREADY OWN.</p>
+
+            <div className="poster-main-row">
+              <div className="poster-cta-column poster-cta-left">
+                <span className="poster-cta-eyebrow">NEED A DRIVER?</span>
+                <strong>BOOK YOUR<br/>NEXT JOURNEY</strong>
+                <button className="poster-pill-button" onClick={() => document.getElementById("book-driver")?.scrollIntoView({ behavior: "smooth", block: "start" })}>
+                  BOOK A DRIVER <ArrowRight size={15}/>
+                </button>
+                <small>ONE-WAY · HOURLY · FULL-DAY</small>
               </div>
-              <div className="hero-steps">
-                <div className="hero-step">
-                  <span className="hero-step-number">01</span>
-                  <div><small>YOU SEND A REQUEST</small><strong>Tell us where you&apos;re going.</strong></div>
-                </div>
-                <div className="hero-step">
-                  <span className="hero-step-number">02</span>
-                  <div><small>WE SHARE THE FARE</small><strong>Review it before you decide.</strong></div>
-                </div>
-                <div className="hero-step">
-                  <span className="hero-step-number">03</span>
-                  <div><small>WE ARRANGE A DRIVER</small><strong>Your car stays yours.</strong></div>
-                </div>
+
+              <div className="poster-car-scene" aria-label="Illustration of a light-blue classic convertible car">
+                <div className="poster-car-caption">A BETTER WAY TO GET THERE</div>
+                <svg className="poster-car-svg" viewBox="0 0 700 330" role="img" aria-labelledby="poster-car-title poster-car-desc">
+                  <title id="poster-car-title">VAYO classic convertible</title>
+                  <desc id="poster-car-desc">A light-blue open-top car, drawn in a flat retro poster style.</desc>
+                  <path className="poster-car-ground" d="M63 263 605 263 661 280 122 291Z"/>
+                  <path className="poster-road-line" d="M86 303H620"/>
+                  <g className="poster-car-body-group">
+                    <path className="poster-car-rear-shadow" d="M105 214 144 177 226 156 272 98Q290 77 328 75H436Q470 75 496 104L548 153 607 169Q635 178 644 206L638 244H585Q575 193 526 193 477 193 468 244H258Q248 193 199 193 151 193 143 244H98Z"/>
+                    <path className="poster-car-body" d="M92 207 130 174Q145 158 180 151L239 139 281 91Q297 73 329 72H437Q470 72 494 101L539 148 598 164Q628 173 639 205L635 237 585 239Q578 188 527 188 475 188 467 239H258Q250 188 200 188 150 188 141 239H96Z"/>
+                    <path className="poster-car-side-light" d="M114 205 150 178Q162 166 190 160L243 149 265 147 250 203 113 224Z"/>
+                    <path className="poster-car-window-frame" d="M257 139 293 96Q305 82 330 81H436Q462 81 483 107L516 146 405 151Z"/>
+                    <path className="poster-car-window" d="M276 134 307 99Q316 90 335 90H431Q452 90 468 109L495 140 402 144Z"/>
+                    <path className="poster-car-windshield-line" d="M403 91 415 146"/>
+                    <path className="poster-car-door-line" d="M411 157 402 224M423 160 538 158"/>
+                    <path className="poster-car-door-handle" d="M456 174h30"/>
+                    <path className="poster-car-front-grille" d="M570 190 619 199 626 218 565 216Z"/>
+                    <path className="poster-car-grille-line" d="M582 200h35M579 207h41"/>
+                    <path className="poster-car-headlight" d="m114 194 32-13 18 1-9 25-39 8Z"/>
+                    <path className="poster-car-tail-light" d="m613 179 19 8 8 21-30-5Z"/>
+                    <path className="poster-car-bumper" d="M96 230 139 234M590 236l48-3"/>
+                    <g className="poster-car-wheel" transform="translate(200 239)">
+                      <circle r="49" className="poster-wheel-outer"/>
+                      <circle r="34" className="poster-wheel-inner"/>
+                      <g className="poster-wheel-spin">
+                        <circle r="25" className="poster-wheel-hub"/>
+                        <path d="M0-24V24M-24 0H24M-17-17 17 17M17-17-17 17" className="poster-wheel-spokes"/>
+                      </g>
+                      <circle r="8" className="poster-wheel-center"/>
+                    </g>
+                    <g className="poster-car-wheel" transform="translate(527 239)">
+                      <circle r="49" className="poster-wheel-outer"/>
+                      <circle r="34" className="poster-wheel-inner"/>
+                      <g className="poster-wheel-spin">
+                        <circle r="25" className="poster-wheel-hub"/>
+                        <path d="M0-24V24M-24 0H24M-17-17 17 17M17-17-17 17" className="poster-wheel-spokes"/>
+                      </g>
+                      <circle r="8" className="poster-wheel-center"/>
+                    </g>
+                    <path className="poster-car-top-highlight" d="M287 92q18-17 44-17h107q26 0 45 24"/>
+                  </g>
+                </svg>
+                <span className="poster-car-footnote">DRIVEN BY VAYO <span>✳</span> MADE FOR YOUR JOURNEY</span>
               </div>
-              <div className="hero-visual-bottom"><span>VAYO / LOCAL DRIVER SERVICE</span><span>01 — 03</span></div>
-            </aside>
+
+              <div className="poster-cta-column poster-cta-right">
+                <span className="poster-cta-eyebrow">WANT TO DRIVE?</span>
+                <strong>JOIN THE<br/>VAYO NETWORK</strong>
+                <button className="poster-pill-button" onClick={() => user ? go("driver") : openAuth("signup")}>
+                  BECOME A DRIVER <ArrowUpRight size={15}/>
+                </button>
+                <small>DRIVER APPLICATIONS REVIEWED</small>
+              </div>
+            </div>
+
+            <div className="poster-bottom-rule" />
+            <div className="poster-bottom-meta">
+              <span>STARTING IN WAYANAD, KERALA</span>
+              <span>YOUR CAR STAYS YOURS <i>·</i> VAYO / 01</span>
+            </div>
           </main>
 
           <section className="pricing-section" id="charges">
