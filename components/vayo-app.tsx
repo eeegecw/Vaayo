@@ -455,7 +455,7 @@ export default function VayoApp() {
             )}
           </div>
 
-          <button className="mobile-menu" aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={menuOpen} onClick={() => { setMenuOpen(!menuOpen); setMobileExpanded(null); }}>
+          <button className="mobile-menu" aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={menuOpen} onClick={() => { setMenuOpen(!menuOpen); setDesktopMenuOpen(null); setMobileExpanded(null); }}>
             {menuOpen ? <X size={22}/> : <Menu size={20}/>}
           </button>
         </div>
@@ -463,7 +463,7 @@ export default function VayoApp() {
         {desktopMenuOpen && (
           <>
             <button className="nav-mega-backdrop" aria-label="Close navigation menu" onClick={() => setDesktopMenuOpen(null)}/>
-            <div className={`nav-mega-panel nav-mega-${desktopMenuOpen}`} role="region" aria-label={`${desktopMenuOpen} menu`}>
+            <div id={`vayo-${desktopMenuOpen}-menu`} className={`nav-mega-panel nav-mega-${desktopMenuOpen}`} role="region" aria-label={`${desktopMenuOpen} menu`}>
               {desktopMenuOpen === "services" && (
                 <>
                   <div className="nav-mega-intro">
