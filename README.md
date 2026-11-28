@@ -25,7 +25,7 @@ Requirements: Node.js 20.9+ and npm.
 
 ```powershell
 Copy-Item .env.example .env.local
-npm install
+npm install --no-audit --no-fund
 npm run dev
 ```
 
@@ -90,3 +90,18 @@ This is an MVP foundation, not a production-ready transport marketplace. Before 
 - Initial launch: Mananthavady, Wayanad, Kerala, India
 - One-way, hourly (1–12 hours), full-day
 - Admin sets each booking fare before customer confirmation
+
+## Repository checks
+
+Run the same checks used by continuous integration before proposing a change:
+
+    npm install --no-audit --no-fund
+    npm audit
+    npm run lint
+    npm run typecheck
+    npm run build
+
+The repository tracks a canonical bootstrap schema in supabase/schema.sql.
+The connected Supabase project also has applied migration history; keep future
+database changes in version-controlled migration files and review them before
+applying them to a populated project.
