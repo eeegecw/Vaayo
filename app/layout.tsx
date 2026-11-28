@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import VayoCursor from "@/components/vayo-cursor";
 
 export const metadata: Metadata = {
   title: "VAYO — A driver for your car",
@@ -15,5 +16,5 @@ export const viewport: Viewport = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+  return <html lang="en"><body>{children}<VayoCursor /></body></html>;
 }
