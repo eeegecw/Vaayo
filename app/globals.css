@@ -1846,3 +1846,497 @@ th, td { border-bottom-color: #303030; }
   color: #f1f1f1;
 }
 .button-light:hover { background: #333; }
+
+/* VAYO plum, pearl and soft-gold theme — based on the latest reference */
+:root {
+  color-scheme: light;
+  --ink: #171316;
+  --ink-soft: #33282e;
+  --paper: #f1eff1;
+  --white: #fbfafb;
+  --muted: #716a70;
+  --line: #d8d3d7;
+  --gold: #e9c96f;
+  --gold-light: #f4dfa0;
+  --green: #28141b;
+  --danger: #9b454b;
+  --shadow: 0 16px 42px rgba(36, 17, 25, .09);
+}
+
+html,
+body {
+  background: #111013;
+  color: var(--ink);
+  color-scheme: light;
+}
+body { font-family: 'DM Sans', Arial, sans-serif; }
+.app-shell {
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* Plum navigation */
+.topbar {
+  background: #241017;
+  border-bottom: 1px solid #3c252d;
+  box-shadow: none;
+}
+.topbar .brand-mark,
+.footer-logo .brand-mark,
+.legal-brand .brand-mark {
+  display: grid;
+  place-items: center;
+  border-radius: 0;
+  background: #f7f4f5;
+  color: #241017;
+}
+.topbar .brand-name,
+.footer-logo .brand-name,
+.legal-brand { color: #fbf8f9; }
+.topbar .brand-tag { color: #c5b7bd; }
+.location-pill {
+  color: #d5cbd0;
+  border-color: #594149;
+}
+.nav-link,
+.nav-link.nav-trigger,
+.nav-link.nav-direct { color: #e5dfe2; }
+.nav-link:hover,
+.nav-link.active,
+.nav-link.nav-trigger:hover,
+.nav-link.nav-direct:hover,
+.nav-link.nav-trigger.active { color: #f2d98e; }
+.nav-trigger svg { color: #c1b2b8; }
+.nav-mega-backdrop { background: rgba(16, 8, 12, .58); }
+.nav-mega-panel {
+  background: rgba(39, 18, 27, .98);
+  border-color: #573943;
+  box-shadow: 0 24px 60px rgba(25, 10, 17, .32);
+}
+.nav-mega-kicker,
+.nav-mega-label,
+.nav-mega-index { color: #e7ce88; }
+.nav-mega-intro h2,
+.nav-mega-item-copy strong,
+.nav-mega-resource strong { color: #fff9fb; }
+.nav-mega-intro p,
+.nav-mega-item-copy small,
+.nav-mega-resource small { color: #d0c3c8; }
+.nav-mega-item,
+.nav-mega-resource {
+  background: #321923;
+  border-color: #5a4149;
+  color: #fff;
+}
+.nav-mega-item:hover,
+.nav-mega-resource:hover {
+  background: #41242f;
+  border-color: #92737d;
+}
+.nav-mega-item > svg,
+.nav-mega-resource > svg { color: #f0d88f; }
+.nav-mega-cta {
+  color: #f0d98e;
+  border-color: #d8b95f;
+}
+.nav-account .nav-login { color: #f0e9ec; }
+.nav-signup {
+  background: #f0d487;
+  border-color: #f0d487;
+  color: #211016;
+}
+.nav-signup:hover {
+  background: #f6e2a8;
+  border-color: #f6e2a8;
+  color: #211016;
+}
+
+/* Light pearl hero and editorial copy */
+.hero {
+  background: var(--paper);
+}
+.hero h1,
+.section-head h2,
+.pricing-heading h2,
+.help-heading h2,
+.page-heading h1,
+.form-title,
+.application-card h2,
+.data-panel-head h3 { color: #171316; }
+.hero h1 {
+  font-family: 'Newsreader', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -.045em;
+}
+.hero h1 em {
+  color: #3a202a;
+  font-style: italic;
+}
+.hero-copy,
+.section-sub,
+.pricing-heading p,
+.help-heading p,
+.page-heading .section-sub { color: #716970; }
+.eyebrow { color: #7c4c5b; }
+.eyebrow:before { background: #8b5867; }
+.trust-row,
+.trust-item { color: #777078; }
+.trust-row { border-top-color: #d5cfd3; }
+.trust-item svg { color: #8b5867; }
+.hero-visual {
+  background:
+    radial-gradient(ellipse at 82% 18%, rgba(233, 201, 111, .16), transparent 48%),
+    linear-gradient(145deg, #38212b, #241017 78%);
+  border: 1px solid #593b46;
+  border-radius: 2px;
+  color: #faf5f7;
+}
+.hero-visual:before {
+  border-color: rgba(245, 223, 230, .18);
+  box-shadow: 0 0 0 32px rgba(245,223,230,.025), 0 0 0 68px rgba(245,223,230,.018);
+}
+.hero-visual-top,
+.hero-visual-bottom { color: #dac9ce; }
+.hero-step { border-color: rgba(255,255,255,.16); }
+.hero-step:first-child { border-top-color: rgba(255,255,255,.16); }
+.hero-step-number { color: #f1d88e; }
+.hero-step small { color: #d6c1c8; }
+.hero-step strong { color: #fff9fb; }
+
+/* Service cards and pricing use quiet pearl surfaces */
+.section { background: var(--paper); }
+.service-card {
+  border-top-color: #c9c1c7;
+  color: #21191e;
+}
+.service-card:hover {
+  border-color: #8c6170;
+  background: rgba(255,255,255,.42);
+}
+.service-number,
+.pricing-step { color: #886071; }
+.service-card h3,
+.pricing-card h3 { color: #21191e; }
+.service-card p,
+.pricing-card p { color: #756c72; }
+.service-card-link { color: #6f4654; }
+.pricing-section {
+  background: #e8e4e8;
+  border-top-color: #d4ccd2;
+  border-bottom-color: #d4ccd2;
+}
+.pricing-card { border-top-color: #c7bdc4; }
+.pricing-cta {
+  background: #efd384;
+  color: #241017;
+}
+.pricing-cta:hover { background: #f6e2a8; }
+
+/* Booking */
+.booking-wrap { background: var(--paper); }
+.booking-panel {
+  background: #fbfafb;
+  border-color: #d8d1d6;
+  box-shadow: 0 18px 46px rgba(39, 18, 27, .08);
+}
+.booking-aside {
+  background:
+    radial-gradient(ellipse at 86% 10%, rgba(233, 201, 111, .13), transparent 48%),
+    #28141b;
+  border-right: 1px solid #513640;
+}
+.booking-aside h2 { color: #fff8fa; }
+.booking-aside p { color: #d8cbd0; }
+.aside-note {
+  color: #f1dfa8;
+  border-top-color: rgba(255,255,255,.18);
+}
+.form-title { color: #21191e; }
+.form-sub,
+.form-hint { color: #777078; }
+.service-option {
+  background: #f3f0f2;
+  border-color: #d9d1d6;
+  color: #645b62;
+}
+.service-option svg { color: #856071; }
+.service-option strong { color: #21191e; }
+.service-option.selected {
+  background: #f8f0d9;
+  border-color: #b9974e;
+  box-shadow: inset 0 0 0 1px #b9974e;
+}
+.field label { color: #5e555c; }
+.field input,
+.field select,
+.field textarea,
+.input {
+  background: #fff;
+  border-color: #d7d0d5;
+  color: #20191d;
+}
+.field input::placeholder,
+.field textarea::placeholder,
+.input::placeholder { color: #999198; }
+.field input:focus,
+.field select:focus,
+.input:focus {
+  border-color: #b99a58;
+  box-shadow: 0 0 0 2px rgba(185,154,88,.15);
+}
+.field select option { background: #fff; color: #20191d; }
+.form-foot .button-dark,
+.application-card .button-dark,
+.modal .button-dark {
+  background: #efd384;
+  color: #241017;
+  border-color: #efd384;
+  box-shadow: none;
+}
+.form-foot .button-dark:hover,
+.application-card .button-dark:hover,
+.modal .button-dark:hover {
+  background: #f6e2a8;
+  border-color: #f6e2a8;
+}
+
+/* Plum support section and footer */
+.help-section {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(111, 67, 83, .22), transparent 60%),
+    #241017;
+  color: #fff8fa;
+  border-top-color: #4c303a;
+}
+.help-heading .eyebrow { color: #f0d98e; }
+.help-heading .eyebrow:before { background: #e5c46f; }
+.help-card {
+  background: #f3f0f2;
+  color: #24191f;
+  border-color: #e0d9de;
+}
+.help-icon-dark { background: #28141b; color: #fff; }
+.help-icon-accent { background: #efd384; color: #241017; }
+.help-card-label { color: #836071; }
+.help-card h3 { color: #24191f; }
+.help-card p { color: #70666d; }
+.help-card button { color: #694454; }
+.site-footer {
+  background: #1f0e15;
+  color: #c8bbc1;
+  border-top-color: #4a3039;
+}
+.footer-description,
+.footer-column button,
+.footer-contact-row { color: #c8bbc1; }
+.footer-note,
+.footer-column-note { color: #e5cf91; }
+.footer-column h3,
+.footer-contact h3,
+.footer-presence h3,
+.footer-portal-label { color: #fff7fa; }
+.footer-column button:hover { color: #f0d98e; }
+.footer-contact-row svg { color: #e7cb7a; }
+.footer-portal-actions button {
+  background: #efd384;
+  color: #241017;
+}
+.footer-portal-actions button:hover { background: #f6e2a8; }
+.footer-presence { border-color: #4b3039; }
+.footer-cities,
+.footer-bottom { color: #b5a6ad; }
+.footer-legal-links a { color: #d4c7cd; }
+.footer-legal-links a:hover { color: #f5db91; }
+.footer-back-top {
+  background: #efd384;
+  color: #241017;
+  box-shadow: none;
+}
+.footer-back-top:hover { background: #f6e2a8; }
+
+/* Dashboards and account screens */
+.page-content { background: var(--paper); }
+.stat-card {
+  background: #fbfafb;
+  border-top-color: #a77a8b;
+}
+.stat-label { color: #766d74; }
+.stat-value { color: #21191e; }
+.stat-icon { color: #806071; }
+.data-panel,
+.application-card {
+  background: #fbfafb;
+  border-color: #d8d1d6;
+}
+.data-panel-head { border-bottom-color: #ded8dc; }
+th { color: #7d747b; }
+td { color: #443940; }
+th, td { border-bottom-color: #e7e1e5; }
+.status {
+  color: #4e4148;
+  background: #eee9ed;
+  border-color: #d8cfd5;
+}
+.status.approved,
+.status.completed {
+  color: #3f5748;
+  background: #e6eee7;
+  border-color: #c6d7c9;
+}
+.status.pending,
+.status.requested,
+.status.quoted {
+  color: #735b28;
+  background: #f8f0d9;
+  border-color: #ead9a6;
+}
+.status.rejected,
+.status.cancelled,
+.status.declined {
+  color: #82464c;
+  background: #f5e8e9;
+  border-color: #e4c8cb;
+}
+.small-button {
+  background: #efd384;
+  color: #241017;
+}
+.empty-state,
+.empty-state p { color: #776e75; }
+.empty-icon { background: #eee8ec; color: #795869; }
+.application-card h2 { color: #24191f; }
+.application-card p { color: #716870; }
+.notice {
+  background: #f4eef1;
+  border-color: #dfd0d8;
+  color: #65525c;
+}
+.alert.success {
+  background: #e8f0e9;
+  border-color: #c8d9ca;
+  color: #405c49;
+}
+.alert.error {
+  background: #f7e9ea;
+  border-color: #e5c9cc;
+  color: #85464d;
+}
+.modal-backdrop { background: rgba(27, 13, 19, .62); }
+.modal {
+  background: #fbfafb;
+  border-color: #ded6dc;
+  box-shadow: 0 24px 70px rgba(35, 15, 24, .24);
+}
+.modal h2 { color: #24191f; }
+.modal p { color: #716870; }
+.modal-close { background: #eee9ed; color: #28141b; }
+.modal .nav-link { color: #6e4959; }
+.mobile-dropdown {
+  background: #fbfafb;
+  border-color: #d9d1d6;
+  box-shadow: 0 16px 40px rgba(35,15,24,.16);
+}
+.mobile-dropdown button { color: #28141b; }
+.mobile-dropdown button:hover { background: #f2edf0; }
+::selection { background: #efd384; color: #241017; }
+
+/* Legal pages match plum chrome and pearl reading surface */
+.legal-shell { background: var(--paper); color: #24191f; }
+.legal-topbar {
+  background: #241017;
+  border-bottom-color: #4a3039;
+}
+.legal-brand { color: #fff8fa; }
+.legal-topbar nav a,
+.legal-footer a { color: #d4c7cd; }
+.legal-topbar nav a:hover,
+.legal-topbar nav a[aria-current="page"],
+.legal-footer a:hover { color: #f2d98e; }
+.legal-heading { border-bottom-color: #d8d0d5; }
+.legal-heading h1 { color: #24191f; }
+.legal-intro,
+.legal-document p,
+.legal-document li { color: #6d646b; }
+.legal-updated { color: #876276; }
+.legal-document section { border-bottom-color: #ded7dc; }
+.legal-document h2 { color: #2b1a22; }
+.legal-document strong { color: #24191f; }
+.legal-document a { color: #805669; }
+.legal-document a:hover { color: #4c2838; }
+.legal-launch-note {
+  background: #f4edf0;
+  border-left-color: #886174;
+}
+.legal-launch-note strong { color: #38202c; }
+.legal-launch-note p { color: #6f5c65; }
+.legal-footer {
+  border-top-color: #ded7dc;
+  color: #766c73;
+}
+
+/* Mobile menu carries the same plum and pearl colours */
+@media (max-width: 700px) {
+  .mobile-menu { color: #fff8fa; }
+  .mobile-menu:hover { background: #412630; }
+  .mobile-nav-overlay {
+    background: #241017;
+    color: #fff8fa;
+  }
+  .mobile-nav-top .brand-name { color: #fff8fa; }
+  .mobile-nav-top .brand-tag { color: #c6b7bd; }
+  .mobile-close { color: #fff8fa; }
+  .mobile-close:hover { background: #412630; }
+  .mobile-signup {
+    background: #efd384;
+    color: #241017;
+  }
+  .mobile-nav-list,
+  .mobile-nav-group,
+  .mobile-nav-toggle,
+  .mobile-nav-direct { border-color: #50343e; }
+  .mobile-nav-toggle,
+  .mobile-nav-direct { color: #fff7fa; }
+  .mobile-nav-toggle svg,
+  .mobile-nav-direct svg { color: #eed38a; }
+  .mobile-nav-submenu button { color: #fff7fa; }
+  .mobile-nav-submenu button:hover { background: #3a202b; }
+  .mobile-nav-submenu small,
+  .mobile-login { color: #cfbfc6; }
+  .mobile-login strong { color: #fff8fa; }
+  .mobile-nav-bottom > span { color: #e2cb8d; }
+}
+
+/* Reference-style gold primary actions and restrained outline buttons */
+.button-dark,
+.button-gold,
+.hero-cta .button-dark {
+  background: #efd384;
+  border-color: #efd384;
+  color: #241017;
+  box-shadow: none;
+}
+.button-dark:hover,
+.button-gold:hover,
+.hero-cta .button-dark:hover {
+  background: #f6e2a8;
+  border-color: #f6e2a8;
+  color: #241017;
+}
+.button-outline,
+.hero-cta .button-outline {
+  background: transparent;
+  border-color: #81777d;
+  color: #24191f;
+}
+.button-outline:hover,
+.hero-cta .button-outline:hover {
+  background: #e6e1e5;
+  border-color: #4d3a43;
+  color: #241017;
+}
+.button-light {
+  background: #28141b;
+  color: #fff8fa;
+}
+.button-light:hover { background: #422631; }
